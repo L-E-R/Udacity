@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>LER - Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- external icon library used -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <!-- external font library used-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,400italic,500,500italic,700,700italic,900,900italic">
+
+  <!-- base stylesheet for the site -->
+  <link rel="stylesheet" media="screen" href="css/base.css" />
+  <!-- responsive stylesheets for the site -->
+  <link rel="stylesheet" media="screen and (max-width: 576px)" href="css/narrow.css" />
+  <link rel='stylesheet' media='screen and (min-width: 577px) and (max-width: 768px)' href='css/medium.css' />
+  <link rel='stylesheet' media='screen and (min-width: 769px) and (max-width: 992px)' href='css/large.css' />
+  <link rel="stylesheet" media="screen and (min-width: 993px)" href="css/wide.css" />
+</head>
+<body>
+
+  <!-- fixed header for the view -->
+  <header class="header">
+    <div class="header__logo"></div>
+    <div class="header__title_container">
+        <h1 class="header__title">LEWIS RYAN</h1>
+        <h4 class="header__subtitle">FRONT-END DEVELOPER</h4>
+    </div>
+    <!-- menu icon displays for narrow and medium size views -->
+    <i id="menu" class="header__menu_icon fa fa-bars fa-2x"></i>
+  </header>
+
+  <main class="container">
+    <!-- sidebar is a slide-in element on narrow and medium views (.open class assignment handled in sidebar.js)
+        and fixed left-side container on large and wide views -->
+    <div class="sidebar">
+      <section class="sidebar__content">
+        <article class="about_me">
+          <div class="about_me__header">
+            <img class="about_me__picture" src="img/profile-pic.png" alt="profile picture">
+            <h3 class="about_me__name">Lewis E. Ryan</h3>
+            <h5 class="about_me__title">Front-End Developer</h5>
+          </div>
+        </article>
+        <article class="get_in_touch">
+            <h6 class="get_in_touch__header">GET IN TOUCH</h6>
+            <a href="mailto:lewis.ryan.jr@gmail.com"><i class="fa fa-envelope fa-2x"></i></a>
+            <a href="https://www.linkedin.com/in/lewiseryan/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+            <a href="https://github.com/L-E-R" target="_blank"><i class="fab fa-github-square fa-2x"></i></a>
+            <a href="https://twitter.com/lewis_e_ryan" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
+        </article>
+      </section>
+    </div>
+
+    <!-- content container for the view -->
+    <div class="content">
+
+      <!-- graphic at the top of the screen below the header -->
+      <div class="banner">
+        <img class="banner_graphic" src="img/web-graphic.jpg" alt="banner graphic">
+      </div>
+
+      <!-- featured work container for displaying project content -->
+      <section class="featured_work">
+        <h2 class="featured_work__header">Featured Work</h2>
+        <div class="featured_work__container">
+            <article class="featured_work__section">
+              <div class="featured_work__graphic_container">
+                <img class="featured_work__graphic" src="img/project-a.jpg" alt="project-a picture">
+                <i class="fas fa-info-circle" onclick="toggleDescription(this.nextElementSibling);"></i>
+                <div class="featured_work__description">
+                  <i class="fas fa-times" onclick="toggleDescription(this.parentNode);"></i>
+                  <p>You create the dream - then you bring it into your world. Work on one thing at a time. Don't get carried away - we have plenty of time. Fluff that up.</p>
+                </div>
+              </div>
+              <div class="featured_work__information">
+                <h2 class="featured_work__title">PROJECT-A</h2>
+                <a href="https://github.com/L-E-R/Project-A" class="featured_work__link">
+                  <i class="fab fa-github fa-2x"></i>
+                  <span class="featured_work__link_text">/L-E-R/Project-A</span>
+                </a>
+              </div>
+            </article>
+            <article class="featured_work__section">
+              <div class="featured_work__graphic_container">
+                <img class="featured_work__graphic" src="img/project-b.jpg" alt="project-b picture">
+                <i class="fas fa-info-circle" onclick="toggleDescription(this.nextElementSibling);"></i>
+                <div class="featured_work__description">
+                  <i class="fas fa-times" onclick="toggleDescription(this.parentNode);"></i>
+                  <p>You don't have to spend all your time thinking about what you're doing, you just let it happen. A beautiful little sunset. Don't fight it, use what happens.</p>
+                </div>
+              </div>
+              <div class="featured_work__information">
+                <h2 class="featured_work__title">PROJECT-B</h2>
+                <a href="https://github.com/L-E-R/Project-B" class="featured_work__link">
+                  <i class="fab fa-github fa-2x"></i>
+                  <span class="featured_work__link_text">/L-E-R/Project-B</span>
+                </a>
+              </div>
+            </article>
+            <article class="featured_work__section">
+              <div class="featured_work__graphic_container">
+                <img class="featured_work__graphic" src="img/project-c.jpg" alt="project-c picture">
+                <i class="fas fa-info-circle" onclick="toggleDescription(this.nextElementSibling);"></i>
+                <div class="featured_work__description">
+                  <i class="fas fa-times" onclick="toggleDescription(this.parentNode);"></i>
+                  <p>Let's make a happy little mountain now. Use what happens naturally, don't fight it. Let your heart take you to wherever you want to be.</p>
+                </div>
+              </div>             
+              <div class="featured_work__information">
+                <h2 class="featured_work__title">PROJECT-C</h2>
+                <a href="https://github.com/L-E-R/Project-C" class="featured_work__link">
+                  <i class="fab fa-github fa-2x"></i>
+                  <span class="featured_work__link_text">/L-E-R/Project-C</span>
+                </a>
+              </div>
+            </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- footer at the bottom of the site to display the copyright information -->
+  <footer>
+    <section class="copyright__container">
+      <h5 class="copyright__content">
+        <i class="far fa-copyright copyright__icon"></i>
+        <!-- content for the copyright year is driven from the copyright.js javascript file -->
+        <span id="copyright_year" class="copyright__year"></span>
+        <span class="copyright__owner">Lewis Ryan</span>
+      </h5>
+    </section>
+  </footer>
+
+  <!-- javascript files that provide functionality for the site -->
+  <script src="js/copyright.js"></script>
+  <script src="js/sidebar.js"></script>
+  <script src="js/work.js"></script>
+
+</body>
+</html>

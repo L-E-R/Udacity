@@ -1,0 +1,112 @@
+/* These wide styles focus on any adjustments for wide resoluton devices */
+
+body {
+  width: 1000px;
+  margin: auto;
+}
+
+/*********************************************
+ * ELEMENT STYLES ****************************
+ *********************************************/
+h1 {
+  font-size: 48px;
+}
+h2 {
+  font-size: 32px;
+}
+
+h4 {
+  font-size: 17px;
+}
+
+/*********************************************
+ * SITE HEADER *******************************
+ *********************************************/
+.header {
+  width: 1000px;
+  height: 115px;
+}
+
+.header__logo {
+  width: 90px;
+  margin-top: 10px;
+}
+
+.header__title_container {
+  margin-top: 20px;
+  padding-right: 10px;
+}
+
+.header__subtitle {
+  margin-top: 20px;
+}
+
+.header__menu_icon {
+  display: none;
+}
+
+/*********************************************
+ * MAIN CONTAINER ****************************
+ *********************************************/
+.container {
+  padding-top: 115px;
+}
+
+/*******************
+ * sidebar content *
+ *******************/
+.sidebar {
+  position: relative;
+  width: 30%;
+  /* calculate 100% view height minus header & footer heights */
+  height: calc(100vh - (117px + 40px));
+  left: 0;
+}
+
+/*******************
+ * view content    *
+ *******************/
+.content {
+  width: 70%
+}
+
+.featured_work__container {
+  justify-content: space-evenly;
+}
+
+.featured_work__graphic_container .fa-info-circle {
+  top: 45%;
+  right: 0%;
+  left: unset;
+}
+
+.featured_work__graphic {
+  width: 100%;
+  height: 130px;
+}
+
+.featured_work__section {
+  width: 25%;
+}
+
+.featured_work__information {
+  width: 100%;
+  padding: 0;
+}
+
+.featured_work__title {
+  text-align: center;
+}
+
+.featured_work__link {
+  text-align: center;
+}
+
+/*********************************************
+ * SITE FOOTER *******************************
+ *********************************************/
+footer {
+  width: inherit;
+}
+
+/*********************************************/

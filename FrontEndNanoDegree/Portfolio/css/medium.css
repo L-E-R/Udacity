@@ -1,0 +1,106 @@
+/* These medium styles focus on any adjustments for small tablet devices */
+
+/*********************************************
+ * ELEMENT STYLES ****************************
+ *********************************************/
+ h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h4 {
+  font-size: 17px;
+}
+
+/*********************************************
+ * SITE HEADER *******************************
+ *********************************************/
+.header {
+  height: 95px;
+}
+
+.header__logo {
+  width: 80px;
+  margin-top: 10px;
+}
+
+.header__title_container {
+  margin-top: 20px;
+  padding-right: 10px;
+}
+
+.header__title {
+  font-size: 36px;
+}
+
+.header__subtitle {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.header__menu_icon {
+  margin-top: 15px;
+}
+
+/*********************************************
+ * MAIN CONTAINER ****************************
+ *********************************************/
+.container {
+  padding-top: 97px;
+}
+
+/*******************
+ * sidebar content *
+ *******************/
+.sidebar {
+  /* calculate 100% view height minus header & footer heights */
+  height: calc(100vh - (97px + 40px));
+}
+
+/*******************
+ * view content    *
+ *******************/
+.featured_work__container {
+  justify-content: space-between;
+}
+
+.featured_work__graphic_container .fa-info-circle {
+  top: 48%;
+  right: 17%;
+  left: unset;
+  font-size: 2em;
+}
+
+.featured_work__graphic {
+  width: 100%;
+  max-width: 220px;
+  height: 150px;
+}
+
+.featured_work__section {
+  width: 45%;
+  justify-content: space-around;
+}
+
+.featured_work__information {
+  width: 100%;
+  text-align: center;
+}
+
+.featured_work__title {
+  text-align: center;
+}
+
+.featured_work__link {
+  text-align: center;
+}
+
+.featured_work__description p {
+  font-size: 18px;
+  line-height: 1.5em;
+}
+
+/*********************************************/
