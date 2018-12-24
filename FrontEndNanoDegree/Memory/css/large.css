@@ -1,0 +1,13 @@
+.game_board {
+  border-radius: 10px;
+  box-shadow: 10px 10px 20px 0px grey;
+}
+
+.game_card {
+  width: 90px;
+  height: 90px;
+}
+
+.game_card__face {
+  font-size: 4em;
+}

@@ -14,14 +14,43 @@
   <!-- base stylesheet for the site -->
   <link rel="stylesheet" media="screen" href="css/base.css" />
   <!-- responsive stylesheets for the site -->
-  <!-- <link rel="stylesheet" media="screen and (max-width: 576px)" href="css/narrow.css" />
-  <link rel='stylesheet' media='screen and (min-width: 577px) and (max-width: 768px)' href='css/medium.css' />
-  <link rel='stylesheet' media='screen and (min-width: 769px) and (max-width: 992px)' href='css/large.css' />
-  <link rel="stylesheet" media="screen and (min-width: 993px)" href="css/wide.css" /> -->
+  <link rel='stylesheet' media='screen and (min-width: 360px) and (max-width: 449px)' href='css/medium.css' />
+  <link rel='stylesheet' media='screen and (min-width: 450px) and (max-width: 549px)' href='css/large.css' />
+  <link rel="stylesheet" media="screen and (min-width: 550px)" href="css/wide.css" />
 </head>
-<body>
+<body onload="game.start()">
 
+  <section class="game_container">
 
+    <div class="game_header">
+      <h2 class="game_title">Memory Game</h2>
+      <div class="game_toolbar">
+          <div class="game_ranking">
+            <i class="fas fa-star one_star"></i>
+            <i class="fas fa-star two_star"></i>
+            <i class="fas fa-star three_star"></i>
+          </div>
+          <div class="game_timer">
+            <span class="stopwatch"></span>
+          </div>
+          <div class="game_moves">
+            <span class="game_moves__label">Moves:</span><span class="count">0</span>
+          </div>
+          <div class="game_reset" onclick="game.reset()">
+            <i class="fas fa-redo"></i>
+          </div>
+        </div>
+    </div>
+    <div class="game_board"></div>
+    <div class="game_victory_overlay">
+      <div class="game_won_message">You Won!</div>
+      <div class="play_again" onclick="game.reset()">Play Again</div>
+    </div>
+  </section>
 
+  <script src="js/stopwatch.js"></script>
+  <script src="js/card.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/game.js"></script>
 </body>
 </html>
