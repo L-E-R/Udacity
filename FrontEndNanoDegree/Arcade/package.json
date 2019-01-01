@@ -1,0 +1,23 @@
+{
+  "name": "mo-crossing",
+  "version": "1.0.0",
+  "description": "arcade based clone game",
+  "author": "Lewis Ryan",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel js -d build",
+    "webpack": "webpack --mode development",
+    "start": "http-server -p 9000",
+    "dev": "concurrently \"npm run webpack\" \"npm run start\""
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.4",
+    "concurrently": "^4.1.0",
+    "http-server": "^0.11.1",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2"
+  }
+}

@@ -1,3 +1,27 @@
 body {
     text-align: center;
+    /* background-color: black; */
+}
+
+canvas {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+    /* border: 1px solid dimgray; */
+    /* border-radius: 5px; */
+}
+
+#splash {
+    z-index: 1001;
+}
+
+#modal {
+    z-index: 101;
+}
+
+#game {
+    z-index: 0;
 }
