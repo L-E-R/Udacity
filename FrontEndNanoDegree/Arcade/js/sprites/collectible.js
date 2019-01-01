@@ -20,8 +20,8 @@ export default class Collectible {
 
   getCollisionPOS() {
     return {
-       x: this.x + 10,
-       y: this.y + 40,
+       x: this.x + 5,
+       y: this.y + 0,
        width: this.width,
        height: this.height
      }
