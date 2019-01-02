@@ -3,18 +3,36 @@
 ## Table of Contents
 
 - [Instructions](#instructions)
-- [Contributing](#contributing)
+- [How To Play](#how-to-play)
 
 ## Instructions
 
-Use this [rubric](https://review.udacity.com/#!/rubrics/15/view) for self-checking your submission.
+To get started locally, follow these instructions:
 
-Make sure the functions you write are **object-oriented** - either class functions (like `Player` and `Enemy`) or class prototype functions such as `Enemy.prototype.checkCollisions`. Also make sure that the keyword `this` is used appropriately within your class and class prototype functions to refer to the object the function is called upon.
+1. If you haven't done it already, get the code.
+1. Once you have the code run `npm install` to downlaod the required packages.
+1. Run `npm run dev` to build and launch a local http server to host the game.
+1. Open your browser and navigat to `http://localhost:9000` to see the game in the browser.
 
-Your **README.md** file should be updated with instructions on both how to 1. Run and 2. Play your arcade game.
+## How To Play
+### Objective
+The objective of the game is to cross the field and collect objects (gas, spark plug, oil) on the other side. Then return those items back to your toolbox, located where you originally started. Beware of the out of control lawn mowers that will mow you down and take a life.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+### Movement
+Use the arrow keys on your keyboard to move up|down|left|right to dodge the lawn mowers and navigate your character on the screen.
 
-## Contributing
+### Keyboard Commands
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+| Screen | Key | Description
+|---|---|---|
+**Game Menu** | ```Enter``` | Launches the game play
+ | ```H```  | Navigates to the How To Play view
+ | ```O```  | Navigates to the Game Options view
+**Game Options** | ```S``` | Save changes to any options
+ | ```Esc```  | Close the Game Optiosn view and return to the Game Menu
+**How To Play** | ```Esc```  | Close the How To Play view and return to the Game Menu
+**Game** | ```Esc```| Pauses the Game Play
+**Game Paused** | ```Enter```| Resumes Game Play from paused state
+ | ```Esc```  | Close the Game (in paused state) and return to the Game Menu
+**Game Over** | ```Enter```| To play again
+ | ```Esc```  | Close the Game (in game over state) and return to the Game Menu
