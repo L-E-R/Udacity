@@ -26,13 +26,13 @@ Use the arrow keys on your keyboard to move up|down|left|right to dodge the lawn
 | Screen | Key | Description
 |---|---|---|
 **Game Menu** | ```Enter``` | Launches the game play
- | ```H```  | Navigates to the How To Play view
- | ```O```  | Navigates to the Game Options view
+ - | ```H```  | Navigates to the How To Play view
+ - | ```O```  | Navigates to the Game Options view
 **Game Options** | ```S``` | Save changes to any options
- | ```Esc```  | Close the Game Optiosn view and return to the Game Menu
+ - | ```Esc```  | Close the Game Optiosn view and return to the Game Menu
 **How To Play** | ```Esc```  | Close the How To Play view and return to the Game Menu
 **Game** | ```Esc```| Pauses the Game Play
 **Game Paused** | ```Enter```| Resumes Game Play from paused state
- | ```Esc```  | Close the Game (in paused state) and return to the Game Menu
+ - | ```Esc```  | Close the Game (in paused state) and return to the Game Menu
 **Game Over** | ```Enter```| To play again
- | ```Esc```  | Close the Game (in game over state) and return to the Game Menu
+ - | ```Esc```  | Close the Game (in game over state) and return to the Game Menu
