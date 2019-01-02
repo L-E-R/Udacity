@@ -1,4 +1,4 @@
-# Classic Arcade Game Clone Project
+# Arcade Game Clone Project
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@ To get started locally, follow these instructions:
 1. If you haven't done it already, get the code.
 1. Once you have the code run `npm install` to downlaod the required packages.
 1. Run `npm run dev` to build and launch a local http server to host the game.
-1. Open your browser and navigat to `http://localhost:9000` to see the game in the browser.
+1. Open your browser and navigate to `http://localhost:9000` to see the game in the browser.
 
 ## How To Play
 ### Objective
