@@ -41,7 +41,7 @@ export default class Enemy {
     
   }
 
-  getCollisionPOS() {
+  collisionPos() {
     return {
        x: this.pos.x + 40,
        y: this.pos.y + 40,
@@ -65,7 +65,7 @@ export default class Enemy {
 
   _debugRenderCollisionRect() {
     this.context.beginPath();
-    this.context.rect(this.getCollisionPOS().x, this.getCollisionPOS().y, this.width, this.height);
+    this.context.rect(this.collisionPos().x, this.collisionPos().y, this.width, this.height);
     this.context.lineWidth = 7;
     this.context.strokeStyle = 'yellow';
     this.context.stroke();

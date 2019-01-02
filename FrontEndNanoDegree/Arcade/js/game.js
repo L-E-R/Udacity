@@ -1,11 +1,13 @@
-import GameBoard from './game_board';
+import GameBoard from './views/game_board';
 
-import Player from '../sprites/player';
-import Enemy from '../sprites/enemy';
-import Toolbox from '../sprites/toolbox';
-import Collectible from '../sprites/collectible';
-import Health from '../sprites/health';
-import Score from '../sprites/score';
+import Player from './sprites/player';
+import Enemy from './sprites/enemy';
+import Toolbox from './sprites/toolbox';
+import Collectible from './sprites/collectible';
+import Health from './sprites/health';
+import Score from './sprites/score';
+
+import GameOver from './views/game_over';
 
 
 /**
@@ -18,6 +20,8 @@ export default class Game {
     this.engine = this.state.engine;
     this.context = this.state.gameContext;
     this.canvas = this.state.gameCanvas;
+
+    this.over = new GameOver(this.state);
 
     this.board = new GameBoard(this.state);
     this.score = new Score(this.state);
@@ -64,7 +68,6 @@ export default class Game {
     this.collectible.render();
 
     this.player.render();
-
     this.enemies.forEach(enemy => enemy.render()); 
 
     
@@ -76,20 +79,37 @@ export default class Game {
         enemy.update(dt)
       });
     }
-      this.render();
-      this.detect();
+    this.render();
+    this.detect();      
   }
 
   detect() {
 
     // enemy collision
     this.enemies.forEach(enemy => {
-      if (this.collides(this.player.getCollisionPOS(), enemy.getCollisionPOS())) {
+      if (this.collides(this.player.collisionPos(), enemy.collisionPos())) {
         this.health.removeHealth();
+        this.player.store = 0;
         this.player.reset();
+
+        if (this.health.value === 0) {
+          this.pause();
+          this.over.render();
+        }
       }
     })
 
+    // collectible collision
+    if (this.collides(this.player.collisionPos(), this.collectible.collisionPos())) {
+      this.collectible.remove();
+      this.player.store = this.collectible.value;
+    }
+
+    // toolbox collision
+    if (this.collides(this.player.collisionPos(), this.toolbox.collisionPos())) {
+      this.score.addPoints(this.player.store);
+      this.player.store = 0;
+    }
   }
 
   collides(a, b) {
@@ -135,7 +155,6 @@ export default class Game {
         case 'right':
         case 'down': {
           if(!this.paused) {
-            this.score.addPoints(10);
             this.player.handleInput(allowedKeys[e.keyCode]);
           }
           break;

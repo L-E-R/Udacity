@@ -16,7 +16,7 @@ export default class Player {
 
     this.image = 'images/char-boy.png';
 
-    this.item = [];
+    this.store = 0;
 
     this.init();
   }
@@ -30,12 +30,20 @@ export default class Player {
 
   }
 
+  get store() {
+    return this._store;
+  }
+
+  set store(value) {
+    this._store = value;
+  }
+
   reset() {
     this.x = 200;
     this.y = 350;
   }
 
-  getCollisionPOS() {
+  collisionPos() {
    return {
       x: this.x + 15,
       y: this.y + 70,
@@ -54,7 +62,7 @@ export default class Player {
 
   _debugRenderCollisionRect() {
     this.context.beginPath();
-    this.context.rect(this.getCollisionPOS().x, this.getCollisionPOS().y, this.width, this.height);
+    this.context.rect(this.collisionPos().x, this.collisionPos().y, this.width, this.height);
     this.context.lineWidth = 7;
     this.context.strokeStyle = 'red';
     this.context.stroke();

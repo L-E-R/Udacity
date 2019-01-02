@@ -18,10 +18,10 @@ export default class Toolbox {
 
   }
 
-  getCollisionPOS() {
+  collisionPos() {
     return {
        x: this.x + 5,
-       y: this.y + 0,
+       y: this.y + 5,
        width: this.width,
        height: this.height
      }
@@ -37,7 +37,7 @@ export default class Toolbox {
 
   _debugRenderCollisionRect() {
     this.context.beginPath();
-    this.context.rect(this.getCollisionPOS().x, this.getCollisionPOS().y, this.width, this.height);
+    this.context.rect(this.collisionPos().x, this.collisionPos().y, this.width, this.height);
     this.context.lineWidth = 7;
     this.context.strokeStyle = 'yellow';
     this.context.stroke();

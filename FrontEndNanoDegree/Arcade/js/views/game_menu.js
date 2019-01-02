@@ -29,6 +29,8 @@ export default class GameMenu {
     this.context.font = "20px Arial";
     this.context.fillStyle = "#FFFFFF";
 
+    // TODO: Game Options Go Here (Character Selection) (Game Difficulty)
+
     this.context.fillText("Press Enter To Start", this.canvas.width/2, this.canvas.height/2 + 75);
 
     this.context.fillStyle = "#99bd98";

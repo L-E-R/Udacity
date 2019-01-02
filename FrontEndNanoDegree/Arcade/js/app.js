@@ -1,3 +1,4 @@
+import Game from './game';
 import GameState from './helpers/game_state';
 import GameEngine from './helpers/game_engine';
 import GameResources from './helpers/game_resources';
@@ -6,7 +7,6 @@ import SplashScreen from './views/splash_screen';
 import GameMenu from './views/game_menu';
 import GameHelp from './views/game_help';
 import GameOptions from './views/game_options';
-import Game from './views/game';
 import GamePause from './views/game_pause';
 import GameOver from './views/game_over';
 
@@ -17,7 +17,7 @@ let App = (function () {
   state.resources = new GameResources(splashAnimation);
  
   // debug statement to show collision rect on sprite objects
-  state.showCollisionRect = true;
+  state.showCollisionRect = false;
 
 
   const splash = new SplashScreen(state);

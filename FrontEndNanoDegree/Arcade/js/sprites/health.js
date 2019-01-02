@@ -11,24 +11,28 @@ export default class Health {
     this.resources = this.state.resources;
 
     this.sprite = 'images/Heart.png';
-    this.health = 3;
+    this._health = 3;
   }
 
   addHealth() {
-    this.health++;
+    this._health++;
     this.render();
   }
 
   removeHealth() {
-    this.health--;
+    this._health--;
     this.render();
+  }
+
+  get value() {
+    return this._health;
   }
 
   render() {
     this.context.textAlign = "center";
 
     for(let i = 1, v = 10; i <= this.health; i++, v += 40) {
-      this.context.drawImage(this.resources.get(this.sprite), v , 10);
+      this.context.drawImage(this.resources.get(this.sprite), v , 0);
     }
   }
 }
