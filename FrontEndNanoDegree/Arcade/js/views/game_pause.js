@@ -6,6 +6,10 @@ export default class GamePause {
   constructor(state) {
     this.state = state;
 
+    this.init();
+  }
+
+  init() {
     this.canvas = this.state.engine.modalCanvas;
     this.context = this.state.engine.modalContext;
   }

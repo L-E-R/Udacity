@@ -6,6 +6,10 @@ export default class SplashScreen {
   constructor(state) {
     this.state = state;
 
+    this.init();
+  }
+
+  init() {
     this.canvas = this.state.engine.splashCanvas;
     this.context = this.state.engine.splashContext;
     this.resources = this.state.resources;
@@ -59,10 +63,10 @@ export default class SplashScreen {
     this.context.fillStyle = "#0a205a";
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.context.drawImage(this.resources.get('images/LER-logo.png'), this.canvas.width/2 - 150, this.canvas.height/2 - 150);
+    this.context.drawImage(this.resources.get('images/splash/ler-logo.png'), this.canvas.width/2 - 150, this.canvas.height/2 - 150);
 
 
-    this.context.drawImage(this.resources.get('images/udacity-logo.png'), 104, 550);
+    this.context.drawImage(this.resources.get('images/splash/udacity-logo.png'), 104, 550);
 
     this.context.font = "20px Arial";
     this.context.fillStyle = "#FFFFFF";

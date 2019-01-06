@@ -6,6 +6,10 @@ export default class Toolbox {
   constructor(state) {
     this.state = state;
 
+    this.init();
+  }
+
+  init() {
     this.context = this.state.engine.gameContext;
     this.resources = this.state.resources;
 
@@ -14,9 +18,9 @@ export default class Toolbox {
     this.width = 70;
     this.height = 70;
 
-    this.sprite = 'images/toolbox.png';
-
+    this.sprite = 'images/board/toolbox.png';
   }
+
 
   collisionPos() {
     return {

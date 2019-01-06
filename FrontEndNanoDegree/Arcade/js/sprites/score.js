@@ -6,6 +6,11 @@ export default class Score {
   constructor(state) {
     this.state = state;
 
+    this.init();
+  }
+
+  init() {
+
     this.context = this.state.engine.gameContext;
     this.canvas = this.state.engine.gameCanvas;
     this.resources = this.state.resources;

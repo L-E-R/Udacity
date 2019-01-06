@@ -6,6 +6,10 @@ export default class Player {
   constructor(state) {
     this.state = state;
 
+    this.init();
+  }
+
+  init() {
     this.context = this.state.engine.gameContext;
     this.resources = this.state.resources;
 
@@ -14,14 +18,10 @@ export default class Player {
     this.width = 70;
     this.height = 70;
 
-    this.image = 'images/char-boy.png';
+    this.image = 'images/characters/char-boy.png';
 
     this.store = 0;
 
-    this.init();
-  }
-
-  init() {
     this.sprite = new Image();
     this.sprite.src = this.image;
   }

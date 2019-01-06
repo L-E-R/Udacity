@@ -6,6 +6,10 @@ export default class GameMenu {
   constructor(state) {
     this.state = state;
 
+    this.init();
+  }
+
+  init() {
     this.canvas = this.state.engine.modalCanvas;
     this.context = this.state.engine.modalContext;
     this.resources = this.state.resources;
@@ -17,7 +21,7 @@ export default class GameMenu {
     this.context.fillStyle = "black";
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.context.drawImage(this.resources.get('images/lawn-mower.png'), this.canvas.width/2 - 85, this.canvas.height/2 - 200);
+    this.context.drawImage(this.resources.get('images/enemies/lawn-mower.png'), this.canvas.width/2 - 85, this.canvas.height/2 - 200);
 
 
     this.context.font = "50px IMPACT";

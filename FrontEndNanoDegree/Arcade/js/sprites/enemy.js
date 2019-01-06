@@ -5,20 +5,24 @@
 export default class Enemy {
   constructor(pos, state) {
     this.state = state;
+    this.pos = pos;
 
+    this.init();
+  }
+
+  init() {
     this.context = this.state.engine.gameContext;
     this.resources = this.state.resources;
 
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.pos = pos;
     this.width = 100;
     this.height = 70;
     this.speed = this.generateSpeed();
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/lawn-mower.png';
+    this.sprite = 'images/enemies/lawn-mower.png';
   }
 
   // Update the enemy's position, required method for game
@@ -38,7 +42,6 @@ export default class Enemy {
     } else {
       this.pos.x = this.pos.x + this.speed * dt;
     }
-    
   }
 
   collisionPos() {

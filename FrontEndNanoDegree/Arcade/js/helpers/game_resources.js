@@ -15,17 +15,18 @@ export default class GameResources {
 
   init() {
     this.load([
-      'images/LER-logo.png',
-      'images/udacity-logo.png',
-      'images/stone-block.png',
-      'images/water-block.png',
-      'images/grass-block.png',
-      'images/enemy-bug.png',
-      'images/char-boy.png',
-      'images/Heart.png',
-      'images/lawn-mower.png',
-      'images/toolbox.png',
-      'images/jerry-can.png'
+      'images/board/stone-block.png',
+      'images/board/water-block.png',
+      'images/board/grass-block.png',
+      'images/board/health.png',
+      'images/board/toolbox.png',
+      'images/characters/char-boy.png',
+      'images/collectibles/jerry-can.png',
+      'images/collectibles/oil-can.png',
+      'images/collectibles/spark-plug.png',
+      'images/enemies/lawn-mower.png',
+      'images/splash/ler-logo.png',
+      'images/splash/udacity-logo.png'
     ]);
   }
 

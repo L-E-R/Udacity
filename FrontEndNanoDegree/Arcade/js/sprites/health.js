@@ -6,11 +6,15 @@ export default class Health {
   constructor(state) {
     this.state = state;
 
+    this.init();
+  }
+
+  init() {
     this.context = this.state.engine.gameContext;
     this.canvas = this.state.engine.gameCanvas;
     this.resources = this.state.resources;
 
-    this.sprite = 'images/Heart.png';
+    this.sprite = 'images/board/health.png';
     this._health = 3;
   }
 

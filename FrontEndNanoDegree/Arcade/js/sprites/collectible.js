@@ -6,6 +6,10 @@ export default class Collectible {
   constructor(state) {
     this.state = state;
 
+    this.init();
+  }
+
+  init() {
     this.context = this.state.engine.gameContext;
     this.resources = this.state.resources;
 
@@ -14,14 +18,9 @@ export default class Collectible {
     this.width = 70;
     this.height = 70;
 
-    this.sprite = 'images/jerry-can.png';
+    this.currentCollectible;
 
-    this.collectibles = [
-      {name: 'jerry', image: 'images/jerry-can.png', points: 10},
-      {name: 'oil', image: 'images/jerry-can.png', points: 5},
-      {name: 'spark', image: 'images/jerry-can.png', points: 15}
-    ];
-
+    this.generateCollectible();
   }
 
   collisionPos() {
@@ -34,11 +33,13 @@ export default class Collectible {
    }
 
    get value() {
-     return this.collectibles[0].points;
+     return this.currentCollectible.points;
    }
 
   render () {
-    this.context.drawImage(this.resources.get(this.sprite), this.x, this.y);
+    if (this.currentCollectible) {
+      this.context.drawImage(this.resources.get(this.currentCollectible.image), this.x, this.y);
+    }
 
     if (this.state.showCollisionRect) {
       this._debugRenderCollisionRect();
@@ -53,13 +54,43 @@ export default class Collectible {
     this.context.stroke();
   }
 
-  update (dt) {
+  generateCollectible () {
+    this.currentCollectible = this.generateCollectibleSprite();
+    
+    this.x = this.generateCollectibleLocation();
+    this.y = 80;
+  }
 
+  generateCollectibleSprite() {
+    const min = 0;
+    const max = 2;
+    const sprites = [
+      {name: 'jerry', image: 'images/collectibles/jerry-can.png', points: 10},
+      {name: 'oil', image: 'images/collectibles/oil-can.png', points: 5},
+      {name: 'spark', image: 'images/collectibles/spark-plug.png', points: 15}
+    ];
+
+    const index =  Math.floor(Math.random() * (max - min + 1)) + min;
+
+    return sprites[index];
+  }
+
+  generateCollectibleLocation() {
+    const min = 0;
+    const max = 4;
+    const locations = [5, 110, 215, 320, 425];
+
+    const index =  Math.floor(Math.random() * (max - min + 1)) + min;
+
+    return locations[index];
   }
 
   remove() {
     this.x = -10000;
     this.y = -10000;
+
+    setTimeout(() => this.generateCollectible(), 5000);
+
   }
 
 }
