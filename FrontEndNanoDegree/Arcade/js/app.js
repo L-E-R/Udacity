@@ -1,7 +1,5 @@
 import Game from './game';
-import GameState from './helpers/game_state';
-import GameEngine from './helpers/game_engine';
-import GameResources from './helpers/game_resources';
+import GameStateObservable from './helpers/game_state_observable';
 
 import SplashScreen from './views/splash_screen';
 import GameMenu from './views/game_menu';
@@ -12,44 +10,47 @@ import GameOver from './views/game_over';
 
 
 let App = (function () {
-  let state = new GameState();
-  state.engine = new GameEngine();
-  state.resources = new GameResources(splashAnimation);
- 
-  // debug statement to show collision rect on sprite objects
-  state.showCollisionRect = false;
 
+  let state = {};
+  let splash, menu, help, options ,game, pause, over;
+  
+  const subscription = new GameStateObservable(
+        onNext,
+        (err) => console.error(err), 
+        () => console.log('complete'));
 
-  const splash = new SplashScreen(state);
+  function onNext(value) {
+    state = value;
 
-  const menu = new GameMenu(state);
-  const help = new GameHelp(state);
-  const options = new GameOptions(state);
+    if (state.game.status.initializing) {
 
-  const game = new Game(state);
-  const pause = new GamePause(state);
-  const over = new GameOver(state);
+      splash = new SplashScreen(state);
 
-  const app = {
-    initializing: true,
-    playing: false,
-    paused: false,
-    over: false
+      menu = new GameMenu(state);
+      help = new GameHelp(state);
+      options = new GameOptions(state);
+    
+      game = new Game(state);
+      pause = new GamePause(state);
+      over = new GameOver(state);
+    
+      state.game.status.initializing = false;
+
+      splashAnimation();
+    }
   }
 
 
-
   function splashAnimation() {
-    splash.animation().then(displayMenu);
+    splash.animation(state).then(displayMenu);
   } 
 
   function displayMenu() {
-    app.initializing = false;
     menu.render();
   }
 
   document.addEventListener('keyup', e => {
-    if (!app.initializing) {
+    if (!state.game.status.initializing) {
       var allowedKeys = {
           13: 'enter',
           27: 'esc',
@@ -59,39 +60,66 @@ let App = (function () {
 
       switch (allowedKeys[e.keyCode]) {
         case 'enter': {
-          if (!app.playing) {
+          if (!state.game.status.playing &&
+              !state.game.status.paused &&
+              !state.game.status.over) {         // Game Menu --> Game
+            state.game.status.playing = true;
             menu.close();
-            app.playing = true;
             game.start();
-          } else if (app.playing && app.paused) {
-            app.paused = false;
+          } else if (state.game.status.paused) {    // Game Paused --> Game
+            state.game.status.paused = false;
+            state.game.status.playing = true;
             pause.clear();
-            game.resume();
+          } else if (state.game.status.over) {      // Game Over --> New Game
+            state.game.status.over = false;
+            state.game.status.playing = true;
+            over.clear();
+            game.stop();
+            game.start();
           }
           break;
         }
         case 'esc': {
-          if (app.playing && !app.paused) {
-            app.paused = true;
-            game.pause();
+          if (state.game.status.playing) {         // Game --> Game Paused
+            state.game.status.playing = false;
+            state.game.status.paused = true;
             pause.render();
-          } else if (app.playing && app.paused) {
-            app.playing = false;
-            app.paused = false;
-            menu.render();
-            game.stop();
+          } else if (state.game.status.paused) {    // Game Paused --> Game Menu
+            state.game.status.playing = false;
+            state.game.status.paused = false;
+            state.game.status.menu = true;
             pause.clear();
+            game.stop();
+            menu.render();
+          } else if (state.game.status.over) {      // Game Over --> Game Menu
+            state.game.status.over = false;
+            state.game.status.menu = true;
+            over.clear();
+            game.stop();
+            menu.render();
+          } else if (state.game.status.help) {     // Game Help --> Game Menu
+            state.game.status.help = false;
+            state.game.status.menu = true;
+            help.close();
+            menu.render();
+          } else if (state.game.status.options) {   // Game Options --> Game Menu
+            state.game.status.options = false;
+            state.game.status.menu = true;
+            options.close();
+            menu.render();
           }
-           break;
+          break;
         }
         case 'h': {
-          if(!app.playing && !app.paused) {
+          if(!state.game.status.playing && !state.game.status.paused) {
+            state.game.status.help = true;
             help.render();
           }
           break;
         }
         case 'o': {
-          if(!app.playing && !app.paused) {
+          if(!state.game.status.playing && !state.game.status.paused) {
+            state.game.status.options = true;
             options.render();
           }
           break;
@@ -101,30 +129,3 @@ let App = (function () {
   });
 
 })(this);
-
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-// enemy1 = new Enemy({x:0, y:125});
-// enemy2 = new Enemy({x:0, y:210});
-// enemy3 = new Enemy({x:0, y:295});
-// allEnemies = [enemy1, enemy2, enemy3];
-
-// player = new Player();
-
-
-// app listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify app.
-// document.addEventListener('keyup', function(e) {
-
-//     var allowedKeys = {
-//         37: 'left',
-//         38: 'up',
-//         39: 'right',
-//         40: 'down'
-//     };
-
-//     player.handleInput(allowedKeys[e.keyCode]);
-// });

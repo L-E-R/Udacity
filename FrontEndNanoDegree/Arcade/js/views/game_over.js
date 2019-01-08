@@ -1,21 +1,23 @@
+import BaseView from "./base_view";
+
 /**
  * Game Over View
  */
 
-export default class GameOver {
+export default class GameOver extends BaseView {
   constructor(state) {
-    this.state = state;
+    super();
 
+    this.state = state;
     this.init();
-    }
+  }
 
   init() {
-    this.canvas = this.state.engine.modalCanvas;
-    this.context = this.state.engine.modalContext;
+    this.canvas = this.state.game.engine.modalCanvas;
+    this.context = this.state.game.engine.modalContext;
   }
 
   render() {
-
     this.context.globalAlpha = 0.5;
     this.context.fillStyle = "black";
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);

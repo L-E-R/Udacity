@@ -1,21 +1,25 @@
+import BaseSprite from "./base_sprite";
+
 /**
  * Health Sprite
  */
 
-export default class Health {
+export default class Health extends BaseSprite{
   constructor(state) {
-    this.state = state;
+    super();
 
+    this.state = state;
     this.init();
   }
 
   init() {
-    this.context = this.state.engine.gameContext;
-    this.canvas = this.state.engine.gameCanvas;
-    this.resources = this.state.resources;
+    this.context = this.state.game.engine.gameContext;
+    this.canvas = this.state.game.engine.gameCanvas;
+    this.resources = this.state.game.resources;
 
     this.sprite = 'images/board/health.png';
     this._health = 3;
+
   }
 
   addHealth() {
@@ -33,10 +37,12 @@ export default class Health {
   }
 
   render() {
-    this.context.textAlign = "center";
-
-    for(let i = 1, v = 10; i <= this.health; i++, v += 40) {
+    for(let i = 1, v = 10; i <= this._health; i++, v += 40) {
       this.context.drawImage(this.resources.get(this.sprite), v , 0);
     }
+  }
+
+  reset() {
+    this._health = 3;
   }
 }

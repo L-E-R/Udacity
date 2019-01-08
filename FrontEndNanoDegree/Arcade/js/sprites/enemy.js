@@ -1,18 +1,21 @@
+import BaseSprite from "./base_sprite";
+
 /**
  * Enemy Sprite
  */
 
-export default class Enemy {
+export default class Enemy extends BaseSprite {
   constructor(pos, state) {
+    super();
+
     this.state = state;
     this.pos = pos;
-
     this.init();
   }
 
   init() {
-    this.context = this.state.engine.gameContext;
-    this.resources = this.state.resources;
+    this.context = this.state.game.engine.gameContext;
+    this.resources = this.state.game.resources;
 
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -57,7 +60,7 @@ export default class Enemy {
   render () {
     this.context.drawImage(this.resources.get(this.sprite), this.pos.x, this.pos.y);
 
-    if (this.state.showCollisionRect) {
+    if (this.state.debug.showCollisionRect) {
       this._debugRenderCollisionRect();
     }
   }
@@ -72,6 +75,10 @@ export default class Enemy {
     this.context.lineWidth = 7;
     this.context.strokeStyle = 'yellow';
     this.context.stroke();
+  }
+
+  reset(pos) {
+    this.pos = pos;
   }
 }
  

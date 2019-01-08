@@ -1,3 +1,6 @@
+import GameEngine from './game_engine';
+import GameResources from './game_resources';
+
 /**
  * Game State
  * 
@@ -6,41 +9,39 @@
 
 export default class GameState {
   constructor() {
-    this._engine;
-    this._resources;
+    this.engine = new GameEngine();
+    this.resource = new GameResources();
 
-    this._showCollisionRect = false;
+    this._state = {
+      options: {
+        character: 'images/characters/char-pink-girl.png',
+        level: ''
+      },
+      game: {
+        engine: this.engine,
+        resources: this.resource,
+        status: {
+          initializing: true,
+          playing: false,
+          paused: false,
+          over: false
+        }
+      },
+      debug: {
+        showCollisionRect: false
+      }
+    }
+
+    this._id = setInterval(() => this.emit(this._state), 200);
   }
 
-  get engine() {
-    return this._engine;
-  }
-
-  set engine(engine) {
-    if(engine) {
-      this._engine = engine;
+  emit(newState) {
+    if (this.ondata) {
+      this.ondata(newState);
     }
   }
 
-  get resources() {
-    return this._resources;
+  destroy() {
+    clearInterval(this._id);
   }
-
-  set resources(resources) {
-    if(resources) {
-      this._resources = resources;
-    }
-  }
-
-  
-  get showCollisionRect() {
-    return this._showCollisionRect;
-  }
-
-  set showCollisionRect(doShow) {
-    if (doShow) {
-      this._showCollisionRect = doShow;
-    }
-  }
-  
 }

@@ -1,18 +1,21 @@
+import BaseView from "./base_view";
+
 /**
  * Splash Screen View
  */
 
-export default class SplashScreen {
+export default class SplashScreen extends BaseView {
   constructor(state) {
-    this.state = state;
+    super();
 
+    this.state = state;
     this.init();
   }
 
   init() {
-    this.canvas = this.state.engine.splashCanvas;
-    this.context = this.state.engine.splashContext;
-    this.resources = this.state.resources;
+    this.canvas = this.state.game.engine.splashCanvas;
+    this.context = this.state.game.engine.splashContext;
+    this.resources = this.state.game.resources;
 
     this.alpha = 0;
     this.delta = 0.01;
@@ -28,9 +31,9 @@ export default class SplashScreen {
     return this.promise;
   }
 
-  loop() {  
+  loop() { 
     this.alpha += this.delta;
-
+    
     if (this.fadein && this.fadeout) {
       this.clear();
       cancelAnimationFrame(this.animationID);
@@ -44,7 +47,7 @@ export default class SplashScreen {
         var d = new Date();
         var d2 = null;
         do { d2 = new Date(); }
-        while(d2-d < 2000);
+        while(d2-d < 1000);
 
         this.delta = -this.delta;
         this.fadein = true;

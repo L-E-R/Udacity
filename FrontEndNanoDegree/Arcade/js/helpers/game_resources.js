@@ -21,6 +21,10 @@ export default class GameResources {
       'images/board/health.png',
       'images/board/toolbox.png',
       'images/characters/char-boy.png',
+      'images/characters/char-cat-girl.png',
+      'images/characters/char-horn-girl.png',
+      'images/characters/char-pink-girl.png',
+      'images/characters/char-princess-girl.png',
       'images/collectibles/jerry-can.png',
       'images/collectibles/oil-can.png',
       'images/collectibles/spark-plug.png',
@@ -45,7 +49,7 @@ export default class GameResources {
       var img = new Image();
       img.onload = () => {
         this.resourceCache[url] = img;
-        if(this.isReady()) {
+        if(this.isReady() && this.readyCallbacks[0] !== undefined) {
           this.readyCallbacks.forEach(func => func());
         }
       };

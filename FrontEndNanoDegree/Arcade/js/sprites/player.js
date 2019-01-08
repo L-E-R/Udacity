@@ -1,46 +1,33 @@
+import BaseSprite from "./base_sprite";
+
 /**
  * Player Sprite
  */
 
-export default class Player {
+export default class Player extends BaseSprite{
   constructor(state) {
-    this.state = state;
+    super();
 
+    this.state = state;
     this.init();
   }
 
   init() {
-    this.context = this.state.engine.gameContext;
-    this.resources = this.state.resources;
+    this.context = this.state.game.engine.gameContext;
+    this.resources = this.state.game.resources;
 
     this.x = 200;
-    this.y = 350;
+    this.y = 425;
     this.width = 70;
     this.height = 70;
 
-    this.image = 'images/characters/char-boy.png';
-
-    this.store = 0;
-
     this.sprite = new Image();
-    this.sprite.src = this.image;
-  }
-
-  update (dt) {
-
-  }
-
-  get store() {
-    return this._store;
-  }
-
-  set store(value) {
-    this._store = value;
+    this.sprite.src = this.state.options.character;
   }
 
   reset() {
     this.x = 200;
-    this.y = 350;
+    this.y = 425;
   }
 
   collisionPos() {
@@ -55,7 +42,7 @@ export default class Player {
   render () {
     this.context.drawImage(this.sprite, this.x, this.y);
 
-    if (this.state.showCollisionRect) {
+    if (this.state.debug.showCollisionRect) {
       this._debugRenderCollisionRect();
     }
   }
@@ -66,10 +53,6 @@ export default class Player {
     this.context.lineWidth = 7;
     this.context.strokeStyle = 'red';
     this.context.stroke();
-  }
-
-  addToStore (item) {
-
   }
 
   handleInput (direction) {
@@ -87,7 +70,7 @@ export default class Player {
         break;
       };
       case 'up': {
-        if (this.y - 85 > 0) {
+        if (this.y - 85 >= 0) {
           this.y -= 85;
         }
         break;

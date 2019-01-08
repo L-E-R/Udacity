@@ -1,20 +1,23 @@
+import BaseSprite from "./base_sprite";
+
 /**
  * Toolbox Sprite
  */
 
-export default class Toolbox {
+export default class Toolbox extends BaseSprite {
   constructor(state) {
-    this.state = state;
+    super();
 
+    this.state = state;
     this.init();
   }
 
   init() {
-    this.context = this.state.engine.gameContext;
-    this.resources = this.state.resources;
+    this.context = this.state.game.engine.gameContext;
+    this.resources = this.state.game.resources;
 
-    this.x = 215;
-    this.y = 500;
+    this.x = 15;
+    this.y = 510;
     this.width = 70;
     this.height = 70;
 
@@ -34,7 +37,7 @@ export default class Toolbox {
   render () {
     this.context.drawImage(this.resources.get(this.sprite), this.x, this.y);
 
-    if (this.state.showCollisionRect) {
+    if (this.state.debug.showCollisionRect) {
       this._debugRenderCollisionRect();
     }
   }
@@ -46,9 +49,4 @@ export default class Toolbox {
     this.context.strokeStyle = 'yellow';
     this.context.stroke();
   }
-
-  update (dt) {
-
-  }
-
 }

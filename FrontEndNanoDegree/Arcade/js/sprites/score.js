@@ -1,19 +1,21 @@
+import BaseSprite from "./base_sprite";
+
 /**
  * Score Sprite
  */
 
-export default class Score {
+export default class Score extends BaseSprite {
   constructor(state) {
-    this.state = state;
+    super();
 
+    this.state = state;
     this.init();
   }
 
   init() {
-
-    this.context = this.state.engine.gameContext;
-    this.canvas = this.state.engine.gameCanvas;
-    this.resources = this.state.resources;
+    this.context = this.state.game.engine.gameContext;
+    this.canvas = this.state.game.engine.gameCanvas;
+    this.resources = this.state.game.resources;
 
     this.score = 0
   }
@@ -35,5 +37,9 @@ export default class Score {
     this.context.fillStyle = "#FFFFFF";
 
     this.context.fillText(this.score, this.canvas.width/2, 40);
+  }
+
+  reset() {
+    this.score = 0;
   }
 }

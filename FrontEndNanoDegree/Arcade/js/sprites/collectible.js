@@ -1,17 +1,20 @@
+import BaseSprite from "./base_sprite";
+
 /**
  * Collectible Sprite
  */
 
-export default class Collectible {
+export default class Collectible extends BaseSprite {
   constructor(state) {
-    this.state = state;
+    super();
 
+    this.state = state;
     this.init();
   }
 
   init() {
-    this.context = this.state.engine.gameContext;
-    this.resources = this.state.resources;
+    this.context = this.state.game.engine.gameContext;
+    this.resources = this.state.game.resources;
 
     this.x = 215;
     this.y = 80;
@@ -32,16 +35,16 @@ export default class Collectible {
      }
    }
 
-   get value() {
-     return this.currentCollectible.points;
+   get item() {
+     return this.currentCollectible;
    }
 
-  render () {
+  render (doGenerate = false) {
     if (this.currentCollectible) {
       this.context.drawImage(this.resources.get(this.currentCollectible.image), this.x, this.y);
     }
 
-    if (this.state.showCollisionRect) {
+    if (this.state.debug.showCollisionRect) {
       this._debugRenderCollisionRect();
     }
   }
@@ -55,7 +58,7 @@ export default class Collectible {
   }
 
   generateCollectible () {
-    this.currentCollectible = this.generateCollectibleSprite();
+    setTimeout(() =>  this.currentCollectible = this.generateCollectibleSprite(), 5000);;
     
     this.x = this.generateCollectibleLocation();
     this.y = 80;
@@ -72,7 +75,8 @@ export default class Collectible {
 
     const index =  Math.floor(Math.random() * (max - min + 1)) + min;
 
-    return sprites[index];
+    this.sprite = sprites[index];
+    return this.sprite;
   }
 
   generateCollectibleLocation() {
@@ -86,11 +90,9 @@ export default class Collectible {
   }
 
   remove() {
+    delete this.currentCollectible;
+
     this.x = -10000;
     this.y = -10000;
-
-    setTimeout(() => this.generateCollectible(), 5000);
-
   }
-
 }

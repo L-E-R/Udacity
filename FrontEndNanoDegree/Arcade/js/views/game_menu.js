@@ -1,18 +1,21 @@
+import BaseView from "./base_view";
+
 /**
  * Game Menu View
  */
 
-export default class GameMenu {
+export default class GameMenu extends BaseView {
   constructor(state) {
-    this.state = state;
+    super();
 
+    this.state = state;
     this.init();
   }
 
   init() {
-    this.canvas = this.state.engine.modalCanvas;
-    this.context = this.state.engine.modalContext;
-    this.resources = this.state.resources;
+    this.canvas = this.state.game.engine.modalCanvas;
+    this.context = this.state.game.engine.modalContext;
+    this.resources = this.state.game.resources;
   }
 
   render() {
@@ -28,12 +31,10 @@ export default class GameMenu {
     this.context.textAlign = "center";
 
     this.context.fillStyle = "#19A329"
-    this.context.fillText("Mo-Crossing", this.canvas.width/2, this.canvas.height/2);
+    this.context.fillText("Mow-Cross", this.canvas.width/2, this.canvas.height/2);
 
     this.context.font = "20px Arial";
     this.context.fillStyle = "#FFFFFF";
-
-    // TODO: Game Options Go Here (Character Selection) (Game Difficulty)
 
     this.context.fillText("Press Enter To Start", this.canvas.width/2, this.canvas.height/2 + 75);
 
