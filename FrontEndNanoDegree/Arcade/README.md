@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [Demo](https://l-e-r.github.io/Udacity)
 - [Instructions](#instructions)
 - [How To Play](#how-to-play)
 
