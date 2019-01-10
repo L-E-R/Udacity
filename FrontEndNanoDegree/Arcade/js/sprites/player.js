@@ -9,6 +9,7 @@ export default class Player extends BaseSprite{
     super();
 
     this.state = state;
+    this.sound = new Audio("sounds/step.wav");
     this.init();
   }
 
@@ -26,9 +27,21 @@ export default class Player extends BaseSprite{
   }
 
   reset() {
+    delete this.isDead;
+    this.sprite.src = this.state.options.character;
     this.x = 200;
     this.y = 425;
   }
+
+  death() {
+    this.isDead = true;
+    this.y += 85;
+    this.sprite.src = "images/board/splat.png";
+    if (!this.state.game.status.over) {
+      setTimeout(() => this.reset(), 3000);
+    }
+  }
+
 
   collisionPos() {
    return {
@@ -56,31 +69,38 @@ export default class Player extends BaseSprite{
   }
 
   handleInput (direction) {
-    switch(direction) {
-      case 'left': {
-        if (this.x - 100 >= 0) {
-          this.x -= 100;
-        }
-        break;
-      };
-      case 'right': {
-        if (this.x + 100 < 500) {
-          this.x += 100;
-        }
-        break;
-      };
-      case 'up': {
-        if (this.y - 85 >= 0) {
-          this.y -= 85;
-        }
-        break;
-      };
-      case 'down': {
-        if (this.y + 85 <= 500) {
-          this.y += 85;
-        }
-        break;
-      };
+    if (!this.isDead) {
+      this.sound.currentTime = 0;
+      switch(direction) {
+        case 'left': {
+          if (this.x - 100 >= 0) {
+            this.sound.play();
+            this.x -= 100;
+          }
+          break;
+        };
+        case 'right': {
+          if (this.x + 100 < 500) {
+            this.sound.play();
+            this.x += 100;
+          }
+          break;
+        };
+        case 'up': {
+          if (this.y - 85 >= 0) {
+            this.sound.play();
+            this.y -= 85;
+          }
+          break;
+        };
+        case 'down': {
+          if (this.y + 85 <= 500) {
+            this.sound.play();
+            this.y += 85;
+          }
+          break;
+        };
+      }
     }
   }
 }

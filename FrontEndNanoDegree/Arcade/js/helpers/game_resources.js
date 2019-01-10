@@ -20,6 +20,7 @@ export default class GameResources {
       'images/board/grass-block.png',
       'images/board/health.png',
       'images/board/toolbox.png',
+      'images/board/splat.png',
       'images/characters/char-boy.png',
       'images/characters/char-cat-girl.png',
       'images/characters/char-horn-girl.png',

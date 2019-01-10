@@ -79,18 +79,32 @@ export default class Game {
     this.toolbox.render();
     this.collectible.render();
 
+    // render dead player z-index lower than enemy
+    // gives effect of enemy going over splat
+    if (this.player.isDead) {
+      this.player.render();
+    }
+
     this.enemies.forEach(enemy => enemy.render());
     
-    this.player.render();
+    // render active player z-index higher than enemy
+    // gives better depth to view
+    if (!this.player.isDead) {
+      this.player.render();
+    }
      
   }
 
   update(dt) {
-    if (!this.state.game.status.paused) {
-      this.enemies.forEach(enemy => {
-        enemy.update(dt)
-      });
-    }
+
+    this.enemies.forEach(enemy => {
+      if (!this.state.game.status.paused) {
+        enemy.update(dt);
+      } else {
+        this.enemy.stopSoundEffect();
+      }
+    });
+    
     this.render();
     this.detect();      
   }
@@ -98,22 +112,24 @@ export default class Game {
   detect() {
 
     // enemy collision
-    this.enemies.forEach(enemy => {
-      if (this.collides(this.player.collisionPos(), enemy.collisionPos())) {
-        this.health.removeHealth();
-        this.satchel.removeItem();
-        this.player.reset();
-        if (!this.collectible.item) {
-          this.collectible.generateCollectible();
-        }
+    if (!this.player.isDead) {
+      this.enemies.forEach(enemy => {
+        if (this.collides(this.player.collisionPos(), enemy.collisionPos())) {
+          this.health.removeHealth();
+          this.satchel.removeItem();
+          this.player.death();
+          if (!this.collectible.item) {
+            this.collectible.generateCollectible();
+          }
 
-        if (this.health.value === 0) {
-          this.state.game.status.over = true;
-          this.state.game.status.playing = false;
-          this.over.render();
+          if (this.health.value === 0) {
+            this.state.game.status.over = true;
+            this.state.game.status.playing = false;
+            this.over.render();
+          }
         }
-      }
-    })
+      })
+    }
 
     // collectible collision
     if (this.collides(this.player.collisionPos(), this.collectible.collisionPos())) {

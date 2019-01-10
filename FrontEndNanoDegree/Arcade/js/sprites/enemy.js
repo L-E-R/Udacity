@@ -10,6 +10,8 @@ export default class Enemy extends BaseSprite {
 
     this.state = state;
     this.pos = pos;
+    this.sound = new Audio("sounds/mower.wav");
+    this.sound.volume = 0.8;
     this.init();
   }
 
@@ -38,6 +40,8 @@ export default class Enemy extends BaseSprite {
     this.pos.x = this.pos.x || 0;
 
     if (this.pos.x > 505) {
+      this.sound.pause();
+      this.sound.currentTime = 0;
       // generate new speed
       this.speed = this.generateSpeed();
       // reset the position to the far left
@@ -66,6 +70,7 @@ export default class Enemy extends BaseSprite {
   }
 
   generateSpeed() {
+    this.sound.play();
     return Math.round((Math.floor(Math.random() * (3- 1 + 1)) + 1) * 100);
   }
 
@@ -78,7 +83,13 @@ export default class Enemy extends BaseSprite {
   }
 
   reset(pos) {
+    this.stopSoundEffect();
     this.pos = pos;
+  }
+
+  stopSoundEffect() {
+    this.sound.pause();
+    this.sound.currentTime = 0;
   }
 }
  
