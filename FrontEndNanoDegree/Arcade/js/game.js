@@ -96,14 +96,11 @@ export default class Game {
   }
 
   update(dt) {
-
-    this.enemies.forEach(enemy => {
-      if (!this.state.game.status.paused) {
-        enemy.update(dt);
-      } else {
-        this.enemy.stopSoundEffect();
-      }
-    });
+    if (!this.state.game.status.paused) {
+      this.enemies.forEach(enemy => enemy.update(dt));
+    } else {
+      this.enemies.forEach(enemy => enemy.stopSoundEffect())
+    }
     
     this.render();
     this.detect();      
@@ -117,7 +114,7 @@ export default class Game {
         if (this.collides(this.player.collisionPos(), enemy.collisionPos())) {
           this.health.removeHealth();
           this.satchel.removeItem();
-          this.player.death();
+
           if (!this.collectible.item) {
             this.collectible.generateCollectible();
           }
@@ -126,7 +123,12 @@ export default class Game {
             this.state.game.status.over = true;
             this.state.game.status.playing = false;
             this.over.render();
+
+            this.enemies.forEach(enemy => enemy.stopSoundEffect())
           }
+
+          this.player.death();
+
         }
       })
     }

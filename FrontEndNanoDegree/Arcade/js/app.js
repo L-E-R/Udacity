@@ -23,29 +23,29 @@ let App = (function () {
     state = value;
 
     if (state.game.status.initializing) {
-
-      splash = new SplashScreen(state);
-
-      menu = new GameMenu(state);
-      help = new GameHelp(state);
-      options = new GameOptions(state);
-    
-      game = new Game(state);
-      pause = new GamePause(state);
-      over = new GameOver(state);
-    
       state.game.status.initializing = false;
-
-      splashAnimation();
+      doSplash();
     }
   }
 
-
-  function splashAnimation() {
-    splash.animation(state).then(displayMenu);
+  function doSplash() {
+    splash = new SplashScreen(state);
+    splash.animation(state).then(doGameSetup);
   } 
 
-  function displayMenu() {
+  function doGameSetup() {
+    menu = new GameMenu(state);
+    help = new GameHelp(state);
+    options = new GameOptions(state);
+  
+    game = new Game(state);
+    pause = new GamePause(state);
+    over = new GameOver(state);
+
+    doGameMenu();
+  }
+
+  function doGameMenu() {    
     menu.render();
   }
 

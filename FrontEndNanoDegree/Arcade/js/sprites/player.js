@@ -9,7 +9,9 @@ export default class Player extends BaseSprite{
     super();
 
     this.state = state;
-    this.sound = new Audio("sounds/step.wav");
+    this.walkingSound = new Audio('sounds/step.wav');
+    this.deathSound = new Audio('sounds/death.wav');
+
     this.init();
   }
 
@@ -35,6 +37,7 @@ export default class Player extends BaseSprite{
 
   death() {
     this.isDead = true;
+    this.deathSound.play();
     this.y += 85;
     this.sprite.src = "images/board/splat.png";
     if (!this.state.game.status.over) {
@@ -70,32 +73,32 @@ export default class Player extends BaseSprite{
 
   handleInput (direction) {
     if (!this.isDead) {
-      this.sound.currentTime = 0;
+      this.walkingSound.currentTime = 0;
       switch(direction) {
         case 'left': {
           if (this.x - 100 >= 0) {
-            this.sound.play();
+            this.walkingSound.play();
             this.x -= 100;
           }
           break;
         };
         case 'right': {
           if (this.x + 100 < 500) {
-            this.sound.play();
+            this.walkingSound.play();
             this.x += 100;
           }
           break;
         };
         case 'up': {
           if (this.y - 85 >= 0) {
-            this.sound.play();
+            this.walkingSound.play();
             this.y -= 85;
           }
           break;
         };
         case 'down': {
           if (this.y + 85 <= 500) {
-            this.sound.play();
+            this.walkingSound.play();
             this.y += 85;
           }
           break;

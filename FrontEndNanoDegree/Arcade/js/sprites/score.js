@@ -16,11 +16,12 @@ export default class Score extends BaseSprite {
     this.context = this.state.game.engine.gameContext;
     this.canvas = this.state.game.engine.gameCanvas;
     this.resources = this.state.game.resources;
-
+    this.sound = new Audio('sounds/dropoff.wav');
     this.score = 0
   }
 
   addPoints(points) {
+    this.sound.play();
     this.score += points;
     this.render();
   }

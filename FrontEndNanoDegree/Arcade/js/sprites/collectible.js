@@ -16,6 +16,8 @@ export default class Collectible extends BaseSprite {
     this.context = this.state.game.engine.gameContext;
     this.resources = this.state.game.resources;
 
+    this.sound = new Audio('sounds/pickup.wav');
+
     this.x = 215;
     this.y = 80;
     this.width = 70;
@@ -91,7 +93,8 @@ export default class Collectible extends BaseSprite {
 
   remove() {
     delete this.currentCollectible;
-
+    if (this.state.game.status.playing) { this.sound.play(); };
+    
     this.x = -10000;
     this.y = -10000;
   }

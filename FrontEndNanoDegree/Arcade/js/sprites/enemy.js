@@ -10,8 +10,8 @@ export default class Enemy extends BaseSprite {
 
     this.state = state;
     this.pos = pos;
-    this.sound = new Audio("sounds/mower.wav");
-    this.sound.volume = 0.8;
+    this.sound = new Audio('sounds/mower.wav');
+    this.sound.volume = 0.25;
     this.init();
   }
 
@@ -70,7 +70,7 @@ export default class Enemy extends BaseSprite {
   }
 
   generateSpeed() {
-    this.sound.play();
+    if (this.state.game.status.playing && !this.state.game.status.over) { this.sound.play(); };
     return Math.round((Math.floor(Math.random() * (3- 1 + 1)) + 1) * 100);
   }
 
