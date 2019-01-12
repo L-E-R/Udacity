@@ -62,7 +62,9 @@ let App = (function () {
         case 'enter': {
           if (!state.game.status.playing &&
               !state.game.status.paused &&
-              !state.game.status.over) {         // Game Menu --> Game
+              !state.game.status.over &&
+              !state.game.status.help &&
+              !state.game.status.options) {         // Game Menu --> Game
             state.game.status.playing = true;
             menu.close();
             game.start();
