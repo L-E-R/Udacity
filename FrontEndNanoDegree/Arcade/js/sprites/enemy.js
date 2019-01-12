@@ -18,26 +18,17 @@ export default class Enemy extends BaseSprite {
     this.resources = this.state.game.resources;
 
     this.sound = this.resources.get('sounds/mower.wav');
+    this.sound.currentTime = 2;
     this.sound.volume = 0.25;
-    
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
+
     this.width = 100;
     this.height = 70;
     this.speed = this.generateSpeed();
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemies/lawn-mower.png';
+    this.sprite = this.resources.get('images/enemies/lawn-mower.png');
   }
 
-  // Update the enemy's position, required method for game
-  // Parameter: dt, a time delta between ticks
   update (dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    
     this.pos.x = this.pos.x || 0;
 
     if (this.pos.x > 505) {
@@ -63,7 +54,7 @@ export default class Enemy extends BaseSprite {
 
   // Draw the enemy on the screen, required method for game
   render () {
-    this.context.drawImage(this.resources.get(this.sprite), this.pos.x, this.pos.y);
+    this.context.drawImage(this.sprite, this.pos.x, this.pos.y);
 
     if (this.state.debug.showCollisionRect) {
       this._debugRenderCollisionRect();

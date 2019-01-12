@@ -21,7 +21,7 @@ export default class Toolbox extends BaseSprite {
     this.width = 70;
     this.height = 70;
 
-    this.sprite = 'images/board/toolbox.png';
+    this.sprite = this.resources.get('images/board/toolbox.png');
   }
 
 
@@ -35,7 +35,7 @@ export default class Toolbox extends BaseSprite {
    }
 
   render () {
-    this.context.drawImage(this.resources.get(this.sprite), this.x, this.y);
+    this.context.drawImage(this.sprite, this.x, this.y);
 
     if (this.state.debug.showCollisionRect) {
       this._debugRenderCollisionRect();

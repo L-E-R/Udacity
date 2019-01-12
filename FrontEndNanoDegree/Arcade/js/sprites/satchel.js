@@ -20,8 +20,6 @@ export default class Satchel extends BaseSprite {
     this.y = 15;
     this.width = 40;
     this.height = 40;
-
-    this.sprite = 'images/collectibles/spark-plug.png';
   }
 
   render () {
@@ -29,8 +27,7 @@ export default class Satchel extends BaseSprite {
     this.context.fillRect(this.x, this.y, this.width, this.height);
 
     if (this._item) {
-      let imageObj = this.resources.get(this._item.image);
-      this.context.drawImage(imageObj, this.x, this.y, imageObj.width * 0.5, imageObj.height * 0.5);
+      this.context.drawImage(this._item.sprite, this.x, this.y, this._item.sprite.width * 0.5, this._item.sprite.height * 0.5);
     }
   }
 

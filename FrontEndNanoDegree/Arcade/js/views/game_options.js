@@ -163,11 +163,11 @@ export default class GameOptions extends BaseView {
     this.render();
     
   }
+  
 
-
-  collides(a, b) {
-    return a.x < b._x + b.width &&
-           a.y < b._y + b.height;
+  collides(position, sprite) {
+    return position.x < sprite._x + sprite.width  && position.x >= sprite._x &&
+           position.y < sprite._y + sprite.height && position.y >= sprite._y
   }
 
   clickPosition(e) {

@@ -17,7 +17,7 @@ export default class Health extends BaseSprite{
     this.canvas = this.state.game.engine.gameCanvas;
     this.resources = this.state.game.resources;
 
-    this.sprite = 'images/board/health.png';
+    this.sprite = this.resources.get('images/board/health.png');
     this._health = 3;
 
   }
@@ -38,7 +38,7 @@ export default class Health extends BaseSprite{
 
   render() {
     for(let i = 1, v = 10; i <= this._health; i++, v += 40) {
-      this.context.drawImage(this.resources.get(this.sprite), v , 0);
+      this.context.drawImage(this.sprite, v , 0);
     }
   }
 

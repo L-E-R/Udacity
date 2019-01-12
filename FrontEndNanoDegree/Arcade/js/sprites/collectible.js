@@ -16,6 +16,12 @@ export default class Collectible extends BaseSprite {
     this.context = this.state.game.engine.gameContext;
     this.resources = this.state.game.resources;
 
+    this.sprites = [
+      {sprite: this.resources.get('images/collectibles/jerry-can.png'), points: 10},
+      {sprite: this.resources.get('images/collectibles/oil-can.png'), points: 5},
+      {sprite: this.resources.get('images/collectibles/spark-plug.png'), points: 15}
+    ];
+
     this.sound = this.resources.get('sounds/pickup.wav');
 
     this.x = 215;
@@ -44,7 +50,7 @@ export default class Collectible extends BaseSprite {
   render () {
     if (this.currentCollectible) {
       this.x = this.x === -10000 ? this.generateCollectibleLocation() : this.x;
-      this.context.drawImage(this.resources.get(this.currentCollectible.image), this.x, this.y);
+      this.context.drawImage(this.currentCollectible.sprite, this.x, this.y);
     }
 
     if (this.state.debug.showCollisionRect) {
@@ -70,16 +76,11 @@ export default class Collectible extends BaseSprite {
   generateCollectibleSprite() {
     const min = 0;
     const max = 2;
-    const sprites = [
-      {name: 'jerry', image: 'images/collectibles/jerry-can.png', points: 10},
-      {name: 'oil', image: 'images/collectibles/oil-can.png', points: 5},
-      {name: 'spark', image: 'images/collectibles/spark-plug.png', points: 15}
-    ];
 
     const index =  Math.floor(Math.random() * (max - min + 1)) + min;
 
-    this.sprite = sprites[index];
-    return this.sprite;
+    let sprite = this.sprites[index];
+    return sprite;
   }
 
   generateCollectibleLocation() {

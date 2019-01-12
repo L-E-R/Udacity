@@ -24,8 +24,7 @@ export default class Player extends BaseSprite{
     this.width = 70;
     this.height = 70;
 
-    this.sprite = new Image();
-    this.sprite.src = this.state.options.character;
+    this.sprite = this.resources.get(this.state.options.character);
   }
 
   reset() {
