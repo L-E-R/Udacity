@@ -56,12 +56,15 @@ export default class GameResources {
     if(this.resourceCache[url]) {
       return this.resourceCache[url];
     } else {
-      if (url.indexOf('images')) {
+      if (url.indexOf('images') !== -1) {
         var img = new Image();
-        img.onload = () => this.resourceCache[url] = img;
-      } else if (url.indexOf('sounds')) {
+        img.onload = () => {
+          this.resourceCache[url] = img;
+        }
+        img.src = url;
+      } else if (url.indexOf('sounds') !== -1) {
         var snd = new Audio(url);
-        snd.onload = () => this.resourceCache[url] = snd;
+        this.resourceCache[url] = snd;
       } else {
         this.resourceCache[url] = false;
       }

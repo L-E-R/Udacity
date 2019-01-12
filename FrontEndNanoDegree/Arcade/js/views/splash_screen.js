@@ -66,7 +66,8 @@ export default class SplashScreen extends BaseView {
     this.context.fillStyle = "#0a205a";
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.context.drawImage(this.resources.get('images/splash/ler-logo.png'), this.canvas.width/2 - 150, this.canvas.height/2 - 150);
+    let res = this.resources.get('images/splash/ler-logo.png');
+    this.context.drawImage(res, this.canvas.width/2 - 150, this.canvas.height/2 - 150);
 
 
     this.context.drawImage(this.resources.get('images/splash/udacity-logo.png'), 104, 550);

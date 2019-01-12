@@ -10,7 +10,7 @@ import GameResources from './game_resources';
 export default class GameState {
   constructor() {
     this.engine = new GameEngine();
-    this.resource = new GameResources();
+    this.resource = new GameResources(this.onResourcesReady.bind(this));
 
     this._state = {
       options: {
@@ -32,7 +32,9 @@ export default class GameState {
         showCollisionRect: false
       }
     }
+  }
 
+  onResourcesReady() {
     this._id = setInterval(() => this.emit(this._state), 200);
   }
 
