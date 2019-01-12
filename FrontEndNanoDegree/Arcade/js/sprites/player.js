@@ -9,15 +9,15 @@ export default class Player extends BaseSprite{
     super();
 
     this.state = state;
-    this.walkingSound = new Audio('sounds/step.wav');
-    this.deathSound = new Audio('sounds/death.wav');
-
     this.init();
   }
 
   init() {
     this.context = this.state.game.engine.gameContext;
     this.resources = this.state.game.resources;
+
+    this.walkingSound = this.resources.get('sounds/step.wav');
+    this.deathSound = this.resources.get('sounds/death.wav');
 
     this.x = 200;
     this.y = 425;

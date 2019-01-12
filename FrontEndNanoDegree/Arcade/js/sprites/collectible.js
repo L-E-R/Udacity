@@ -16,7 +16,7 @@ export default class Collectible extends BaseSprite {
     this.context = this.state.game.engine.gameContext;
     this.resources = this.state.game.resources;
 
-    this.sound = new Audio('sounds/pickup.wav');
+    this.sound = this.resources.get('sounds/pickup.wav');
 
     this.x = 215;
     this.y = 80;

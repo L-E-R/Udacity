@@ -10,14 +10,15 @@ export default class Enemy extends BaseSprite {
 
     this.state = state;
     this.pos = pos;
-    this.sound = new Audio('sounds/mower.wav');
-    this.sound.volume = 0.25;
     this.init();
   }
 
   init() {
     this.context = this.state.game.engine.gameContext;
     this.resources = this.state.game.resources;
+
+    this.sound = this.resources.get('sounds/mower.wav');
+    this.sound.volume = 0.25;
     
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started

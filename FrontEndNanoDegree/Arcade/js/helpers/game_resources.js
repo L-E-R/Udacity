@@ -34,7 +34,13 @@ export default class GameResources {
       'images/collectibles/spark-plug.png',
       'images/enemies/lawn-mower.png',
       'images/splash/ler-logo.png',
-      'images/splash/udacity-logo.png'
+      'images/splash/udacity-logo.png',
+      'sounds/death.wav',
+      'sounds/dropoff.wav',
+      'sounds/mower.wav',
+      'sounds/pickup.wav',
+      'sounds/splashintro.wav',
+      'sounds/step.wav'
     ]);
   }
 
@@ -50,15 +56,19 @@ export default class GameResources {
     if(this.resourceCache[url]) {
       return this.resourceCache[url];
     } else {
-      var img = new Image();
-      img.onload = () => {
-        this.resourceCache[url] = img;
-        if(this.isReady() && this.readyCallbacks[0] !== undefined) {
-          this.readyCallbacks.forEach(func => func());
-        }
-      };
-      this.resourceCache[url] = false;
-      img.src = url;
+      if (url.indexOf('images')) {
+        var img = new Image();
+        img.onload = () => this.resourceCache[url] = img;
+      } else if (url.indexOf('sounds')) {
+        var snd = new Audio(url);
+        snd.onload = () => this.resourceCache[url] = snd;
+      } else {
+        this.resourceCache[url] = false;
+      }
+
+      if(this.isReady() && this.readyCallbacks[0] !== undefined) {
+        this.readyCallbacks.forEach(func => func());
+      }
     }
   }
 
