@@ -41,8 +41,9 @@ export default class Collectible extends BaseSprite {
      return this.currentCollectible;
    }
 
-  render (doGenerate = false) {
+  render () {
     if (this.currentCollectible) {
+      this.x = this.x === -10000 ? this.generateCollectibleLocation() : this.x;
       this.context.drawImage(this.resources.get(this.currentCollectible.image), this.x, this.y);
     }
 
@@ -96,6 +97,5 @@ export default class Collectible extends BaseSprite {
     if (this.state.game.status.playing) { this.sound.play(); };
     
     this.x = -10000;
-    this.y = -10000;
   }
 }

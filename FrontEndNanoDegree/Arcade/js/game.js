@@ -135,7 +135,7 @@ export default class Game {
 
     // collectible collision
     if (this.collides(this.player.collisionPos(), this.collectible.collisionPos())) {
-      this.satchel.item = Object.assign({}, this.collectible.item);
+      this.satchel.item = this.collectible.item;
       this.collectible.remove();
     }
 
