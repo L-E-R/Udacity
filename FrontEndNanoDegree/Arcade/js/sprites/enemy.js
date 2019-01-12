@@ -18,7 +18,7 @@ export default class Enemy extends BaseSprite {
   init() {
     this.context = this.state.game.engine.gameContext;
     this.resources = this.state.game.resources;
-
+    
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.width = 100;
@@ -71,7 +71,8 @@ export default class Enemy extends BaseSprite {
 
   generateSpeed() {
     if (this.state.game.status.playing && !this.state.game.status.over) { this.sound.play(); };
-    return Math.round((Math.floor(Math.random() * (3- 1 + 1)) + 1) * 100);
+    let speedDifficulty = 100 * this.state.options.enemyspeed;
+    return Math.round((Math.floor(Math.random() * (3- 1 + 1)) + 1) * speedDifficulty);
   }
 
   _debugRenderCollisionRect() {

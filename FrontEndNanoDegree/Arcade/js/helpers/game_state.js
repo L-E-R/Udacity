@@ -15,7 +15,8 @@ export default class GameState {
     this._state = {
       options: {
         character: 'images/characters/char-pink-girl.png',
-        level: ''
+        difficulty: 'images/buttons/easy.png',
+        enemyspeed: 1
       },
       game: {
         engine: this.engine,

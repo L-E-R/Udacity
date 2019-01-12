@@ -18,8 +18,11 @@ export default class GameOptions extends BaseView {
 
     this.setupKeyboardListener();
 
-    this.selectedSprite = new Image();
-    this.selectedSprite.src = this.state.options.character;
+    this.selectedCharacter = new Image();
+    this.selectedCharacter.src = this.state.options.character;
+
+    this.selectedOption = new Image();
+    this.selectedOption.src = this.state.options.difficulty;
 
     this.sprite_a = new Image();
     this.sprite_a._x = 50;
@@ -45,6 +48,27 @@ export default class GameOptions extends BaseView {
     this.sprite_e._x = 350;
     this.sprite_e._y = 100;
     this.sprite_e.src = 'images/characters/char-princess-girl.png';
+
+    this.sprite_easy = new Image();
+    this.sprite_easy._x = 50;
+    this.sprite_easy._y = 425;
+    this.sprite_easy.src = 'images/buttons/easy.png';
+    this.sprite_easy.enemyspeed = 1;
+
+    this.sprite_medium = new Image();
+    this.sprite_medium._x = 175;
+    this.sprite_medium._y = 425;
+    this.sprite_medium.src = 'images/buttons/medium.png';
+    this.sprite_medium.enemyspeed = 2;
+
+    this.sprite_hard = new Image();
+    this.sprite_hard._x = 350;
+    this.sprite_hard._y = 425;
+    this.sprite_hard.src = 'images/buttons/hard.png';
+    this.sprite_hard.enemyspeed = 3;
+
+
+
   }
 
   render() {
@@ -68,7 +92,6 @@ export default class GameOptions extends BaseView {
     this.context.font = "20px Arial";
     this.context.fillText("Character", 35, 125);
 
-    // TODO: Characters for selection go here
     this.drawSprite(this.sprite_a, this.sprite_a._x, this.sprite_a._y);
     this.drawSprite(this.sprite_b, this.sprite_b._x, this.sprite_b._y);
     this.drawSprite(this.sprite_c, this.sprite_c._x, this.sprite_c._y);
@@ -76,7 +99,10 @@ export default class GameOptions extends BaseView {
     this.drawSprite(this.sprite_e, this.sprite_e._x, this.sprite_e._y);
 
     this.context.fillText("Difficulty", 35, 400);
-    // TODO: Radio buttons go here
+   
+    this.drawSprite(this.sprite_easy, this.sprite_easy._x, this.sprite_easy._y);
+    this.drawSprite(this.sprite_medium, this.sprite_medium._x, this.sprite_medium._y);
+    this.drawSprite(this.sprite_hard, this.sprite_hard._x, this.sprite_hard._y);
 
     this.context.textAlign = "center";
     this.context.fillStyle = "#99bd98";
@@ -87,9 +113,17 @@ export default class GameOptions extends BaseView {
 
   drawSprite(sprite, x, y) {
     this.context.drawImage(sprite, x, y);
-    if (sprite.src === this.selectedSprite.src) {
+    if (sprite.src === this.selectedCharacter.src) {
       this.context.beginPath();
       this.context.rect(x + 10, y + 50, 80, 90);
+      this.context.lineWidth = 2;
+      this.context.strokeStyle = 'lightgray';
+      this.context.stroke();
+    }
+    if (sprite.src === this.selectedOption.src) {
+      let width = sprite.src === this.sprite_medium.src ? 170 : 120;
+      this.context.beginPath();
+      this.context.rect(x, y, width, 50);
       this.context.lineWidth = 2;
       this.context.strokeStyle = 'lightgray';
       this.context.stroke();
@@ -106,15 +140,23 @@ export default class GameOptions extends BaseView {
     let position = this.clickPosition(e);
     
     if (this.collides(position, this.sprite_a)) {
-      this.selectedSprite = this.sprite_a
+      this.selectedCharacter = this.sprite_a
     } else if (this.collides(position, this.sprite_b)) {
-      this.selectedSprite = this.sprite_b
+      this.selectedCharacter = this.sprite_b
     } else if (this.collides(position, this.sprite_c)) {
-      this.selectedSprite = this.sprite_c
+      this.selectedCharacter = this.sprite_c
     } else if (this.collides(position, this.sprite_d)) {
-      this.selectedSprite = this.sprite_d
+      this.selectedCharacter = this.sprite_d
     } else if (this.collides(position, this.sprite_e)) {
-      this.selectedSprite = this.sprite_e
+      this.selectedCharacter = this.sprite_e
+    }
+
+    if (this.collides(position, this.sprite_easy)) {
+      this.selectedOption = this.sprite_easy;
+    } else if (this.collides(position, this.sprite_medium)) {
+      this.selectedOption = this.sprite_medium;
+    } else if (this.collides(position, this.sprite_hard)) {
+      this.selectedOption = this.sprite_hard;
     }
 
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -157,8 +199,10 @@ export default class GameOptions extends BaseView {
       switch (allowedKeys[e.keyCode]) {
         case 's': {
           if(!this.state.game.status.playing && !this.state.game.status.paused) {
-            let index = this.selectedSprite.src.indexOf('images');
-            this.state.options.character = this.selectedSprite.src.slice(index, this.selectedSprite.src.length);
+            let index = this.selectedCharacter.src.indexOf('images');
+            this.state.options.character = this.selectedCharacter.src.slice(index, this.selectedCharacter.src.length);
+            this.state.options.difficulty = this.selectedOption.src.slice(index, this.selectedOption.src.length);
+            this.state.options.enemyspeed = this.selectedOption.enemyspeed;
           }
           break;
         }
