@@ -2,21 +2,30 @@ import BaseSprite from "./base_sprite";
 
 /**
  * Enemy Sprite
+ * 
+ * Handles the creation of enemies and their location as well as movement speed
  */
 
 export default class Enemy extends BaseSprite {
-  constructor(pos, state) {
+  
+  constructor(pos) {
     super();
-
-    this.state = state;
     this.pos = pos;
     this.init();
   }
 
-  init() {
-    this.context = this.state.game.engine.gameContext;
-    this.resources = this.state.game.resources;
+  /* Getter & Setters */
+  get collisionPos() {
+    return {
+       x: this.pos.x + 40,
+       y: this.pos.y + 40,
+       width: this.width,
+       height: this.height
+     }
+   }
 
+  /* Initialize Class Variables */
+  init() {
     this.sound = this.resources.get('sounds/mower.wav');
     this.sound.currentTime = 2;
     this.sound.volume = 0.25;
@@ -28,6 +37,28 @@ export default class Enemy extends BaseSprite {
     this.sprite = this.resources.get('images/enemies/lawn-mower.png');
   }
 
+
+  /* Render Sprite Object to the Canvas */
+  render () {
+    this.gameContext.drawImage(this.sprite, this.pos.x, this.pos.y);
+
+    if (this.debug.showCollisionRect) {
+      this._debugRenderCollisionRect();
+    }
+  }
+
+
+  /* Render Collision Rectangle around Sprite Image */
+  _debugRenderCollisionRect() {
+    this.gameContext.beginPath();
+    this.gameContext.rect(this.collisionPos.x, this.collisionPos.y, this.width, this.height);
+    this.gameContext.lineWidth = 7;
+    this.gameContext.strokeStyle = 'yellow';
+    this.gameContext.stroke();
+  }
+
+  
+  /* Update Sprite Object on the Canvas */
   update (dt) {
     this.pos.x = this.pos.x || 0;
 
@@ -43,41 +74,19 @@ export default class Enemy extends BaseSprite {
     }
   }
 
-  collisionPos() {
-    return {
-       x: this.pos.x + 40,
-       y: this.pos.y + 40,
-       width: this.width,
-       height: this.height
-     }
-   }
 
-  // Draw the enemy on the screen, required method for game
-  render () {
-    this.context.drawImage(this.sprite, this.pos.x, this.pos.y);
-
-    if (this.state.debug.showCollisionRect) {
-      this._debugRenderCollisionRect();
-    }
-  }
-
-  generateSpeed() {
-    if (this.state.game.status.playing && !this.state.game.status.over) { this.sound.play(); };
-    let speedDifficulty = 100 * this.state.options.enemyspeed;
-    return Math.round((Math.floor(Math.random() * (3- 1 + 1)) + 1) * speedDifficulty);
-  }
-
-  _debugRenderCollisionRect() {
-    this.context.beginPath();
-    this.context.rect(this.collisionPos().x, this.collisionPos().y, this.width, this.height);
-    this.context.lineWidth = 7;
-    this.context.strokeStyle = 'yellow';
-    this.context.stroke();
-  }
-
+  /* Reset Sprite Position on Canvas */
   reset(pos) {
     this.stopSoundEffect();
     this.pos = pos;
+  }
+
+
+  /* Helper Methods */
+  generateSpeed() {
+    if (this.status.playing && !this.status.over) { this.sound.play(); };
+    let speedDifficulty = 100 * this.options.enemyspeed;
+    return Math.round((Math.floor(Math.random() * (3- 1 + 1)) + 1) * speedDifficulty);
   }
 
   stopSoundEffect() {

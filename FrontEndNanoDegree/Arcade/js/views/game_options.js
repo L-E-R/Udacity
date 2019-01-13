@@ -5,24 +5,23 @@ import BaseView from "./base_view";
  */
 
 export default class GameOptions extends BaseView {
-  constructor(state) {
-    super();
 
-    this.state = state;
+  constructor() {
+    super();
     this.init();
   }
-  
+
+
+  /* Initialize Class Variables */
   init() {
-    this.canvas = this.state.game.engine.modalCanvas;
-    this.context = this.state.game.engine.modalContext;
 
     this.setupKeyboardListener();
 
     this.selectedCharacter = new Image();
-    this.selectedCharacter.src = this.state.options.character;
+    this.selectedCharacter.src = this.options.character;
 
     this.selectedOption = new Image();
-    this.selectedOption.src = this.state.options.difficulty;
+    this.selectedOption.src = this.options.difficulty;
 
     this.sprite_a = new Image();
     this.sprite_a._x = 50;
@@ -67,30 +66,32 @@ export default class GameOptions extends BaseView {
     this.sprite_hard.src = 'images/buttons/hard.png';
     this.sprite_hard.enemyspeed = 3;
 
-
-
   }
 
+  /* Render Sprite Object to the Canvas */
   render() {
+    let ctx = this.modalContext;
+    let cnv = this.modalCanvas;
+
     document.querySelector('canvas').addEventListener("click", this.onCanvasClick.bind(this), false);
     
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.clearRect(0, 0, cnv.width, cnv.height);
 
-    this.context.fillStyle = "black";
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, cnv.width, cnv.height);
 
-    this.context.font = "50px IMPACT";
-    this.context.textAlign = "center";
+    ctx.font = "50px IMPACT";
+    ctx.textAlign = "center";
 
-    this.context.strokeStyle = "#b6ff60"
-    this.context.strokeText("Game Options", this.canvas.width/2, 75);
+    ctx.strokeStyle = "#b6ff60"
+    ctx.strokeText("Game Options", cnv.width/2, 75);
 
-    this.context.font = "20px Arial";
-    this.context.fillStyle = "#FFFFFF";
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "#FFFFFF";
 
-    this.context.textAlign = "left";
-    this.context.font = "20px Arial";
-    this.context.fillText("Character", 35, 125);
+    ctx.textAlign = "left";
+    ctx.font = "20px Arial";
+    ctx.fillText("Character", 35, 125);
 
     this.drawSprite(this.sprite_a, this.sprite_a._x, this.sprite_a._y);
     this.drawSprite(this.sprite_b, this.sprite_b._x, this.sprite_b._y);
@@ -98,44 +99,50 @@ export default class GameOptions extends BaseView {
     this.drawSprite(this.sprite_d, this.sprite_d._x, this.sprite_d._y);
     this.drawSprite(this.sprite_e, this.sprite_e._x, this.sprite_e._y);
 
-    this.context.fillText("Difficulty", 35, 400);
+    ctx.fillText("Difficulty", 35, 400);
    
     this.drawSprite(this.sprite_easy, this.sprite_easy._x, this.sprite_easy._y);
     this.drawSprite(this.sprite_medium, this.sprite_medium._x, this.sprite_medium._y);
     this.drawSprite(this.sprite_hard, this.sprite_hard._x, this.sprite_hard._y);
 
-    this.context.textAlign = "center";
-    this.context.fillStyle = "#99bd98";
-    this.context.fillText("Press S To Save Changes", this.canvas.width/2, this.canvas.height - 75);
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#99bd98";
+    ctx.fillText("Press S To Save Changes", cnv.width/2, cnv.height - 75);
 
-    this.context.fillText("Press Esc For Game Menu", this.canvas.width/2, this.canvas.height - 25);
+    ctx.fillText("Press Esc For Game Menu", cnv.width/2, cnv.height - 25);
   }
 
-  drawSprite(sprite, x, y) {
-    this.context.drawImage(sprite, x, y);
-    if (sprite.src === this.selectedCharacter.src) {
-      this.context.beginPath();
-      this.context.rect(x + 10, y + 50, 80, 90);
-      this.context.lineWidth = 2;
-      this.context.strokeStyle = 'lightgray';
-      this.context.stroke();
-    }
-    if (sprite.src === this.selectedOption.src) {
-      let width = sprite.src === this.sprite_medium.src ? 170 : 120;
-      this.context.beginPath();
-      this.context.rect(x, y, width, 50);
-      this.context.lineWidth = 2;
-      this.context.strokeStyle = 'lightgray';
-      this.context.stroke();
-    }
-  }
 
+  /* Clear the Modal Canvas to Simulate Modal Close */
   close() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.modalContext.clearRect(0, 0, this.modalCanvas.width, this.modalCanvas.height);
     document.querySelector('canvas').removeEventListener("click", this.onCanvasClick.bind(this));
   }
 
-  
+
+  /* Helper Methods */
+  drawSprite(sprite, x, y) {
+    let ctx = this.modalContext;
+
+    ctx.drawImage(sprite, x, y);
+
+    if (sprite.src === this.selectedCharacter.src) {
+      ctx.beginPath();
+      ctx.rect(x + 10, y + 50, 80, 90);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'lightgray';
+      ctx.stroke();
+    }
+    if (sprite.src === this.selectedOption.src) {
+      let width = sprite.src === this.sprite_medium.src ? 170 : 120;
+      ctx.beginPath();
+      ctx.rect(x, y, width, 50);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'lightgray';
+      ctx.stroke();
+    }
+  }
+
   onCanvasClick(e) {
     let position = this.clickPosition(e);
     
@@ -159,12 +166,11 @@ export default class GameOptions extends BaseView {
       this.selectedOption = this.sprite_hard;
     }
 
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.modalContext.clearRect(0, 0, this.modalCanvas.width, this.modalCanvas.height);
     this.render();
     
   }
   
-
   collides(position, sprite) {
     return position.x < sprite._x + sprite.width  && position.x >= sprite._x &&
            position.y < sprite._y + sprite.height && position.y >= sprite._y
@@ -177,32 +183,27 @@ export default class GameOptions extends BaseView {
       x = e.pageX;
       y = e.pageY;
     }
-    else {
-      x = e.clientX + document.body.scrollLeft +
-                document.documentElement.scrollLeft;
-      y = e.clientY + document.body.scrollTop +
-                document.documentElement.scrollTop;
-    }
-    x -= this.canvas.offsetLeft;
-    y -= this.canvas.offsetTop;
+    x -= this.modalCanvas.offsetLeft;
+    y -= this.modalCanvas.offsetTop;
 
     return {x:x, y:y};
   }
 
+
+  /* Handle Keyboard Input for the Context */
   setupKeyboardListener() {
     document.addEventListener('keyup', e => {
-
       var allowedKeys = {
         83: 's'
       };
   
       switch (allowedKeys[e.keyCode]) {
         case 's': {
-          if(!this.state.game.status.playing && !this.state.game.status.paused) {
+          if(!this.status.playing && !this.status.paused) {
             let index = this.selectedCharacter.src.indexOf('images');
-            this.state.options.character = this.selectedCharacter.src.slice(index, this.selectedCharacter.src.length);
-            this.state.options.difficulty = this.selectedOption.src.slice(index, this.selectedOption.src.length);
-            this.state.options.enemyspeed = this.selectedOption.enemyspeed;
+            this.options.character = this.selectedCharacter.src.slice(index, this.selectedCharacter.src.length);
+            this.options.difficulty = this.selectedOption.src.slice(index, this.selectedOption.src.length);
+            this.options.enemyspeed = this.selectedOption.enemyspeed;
           }
           break;
         }

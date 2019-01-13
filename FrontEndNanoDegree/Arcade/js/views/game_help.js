@@ -5,47 +5,54 @@ import BaseView from "./base_view";
  */
 
 export default class GameHelp extends BaseView {
+
   constructor(state) {
     super();
-
-    this.state = state;
     this.init();
   }
 
+  /* Initialize Class Variables */
   init() {
-    this.canvas = this.state.game.engine.modalCanvas;
-    this.context = this.state.game.engine.modalContext;
   }
 
+
+  /* Render Content to the Canvas */
   render() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    let ctx = this.modalContext;
+    let cnv = this.modalCanvas;
 
-    this.context.fillStyle = "black";
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.clearRect(0, 0, cnv.width, cnv.height);
 
-    this.context.font = "50px IMPACT";
-    this.context.textAlign = "center";
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, cnv.width, cnv.height);
 
-    this.context.strokeStyle = "#b6ff60"
-    this.context.strokeText("How To Play", this.canvas.width/2, 75);
+    ctx.font = "50px IMPACT";
+    ctx.textAlign = "center";
 
-    this.context.font = "20px Arial";
-    this.context.fillStyle = "#FFFFFF";
+    ctx.strokeStyle = "#b6ff60"
+    ctx.strokeText("How To Play", cnv.width/2, 75);
+
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "#FFFFFF";
 
     let text = "The objective of the game is to cross the field and collect objects (gas, spark plug, oil) on the other side. Then return those items back to your toolbox, located where you originally started. Beware of the out of control lawn mowers that will mow you down and take a life."
-    let nextY = this.wrapText(this.context, text, this.canvas.width/2, 125, this.canvas.width - 20, 20, "Arial");
+    let nextY = this.wrapText(ctx, text, cnv.width/2, 125, cnv.width - 20, 20, "Arial");
     
-    this.context.fillText("Use the keyboard arrow keys to control the character", this.canvas.width/2, nextY + 50);
-    this.context.fillText("Up | Down | Left | Right", this.canvas.width/2, nextY + 100);
+    ctx.fillText("Use the keyboard arrow keys to control the character", cnv.width/2, nextY + 50);
+    ctx.fillText("Up | Down | Left | Right", cnv.width/2, nextY + 100);
 
-    this.context.fillStyle = "#99bd98";
-    this.context.fillText("Press Esc For Game Menu ", this.canvas.width/2, this.canvas.height - 25);
+    ctx.fillStyle = "#99bd98";
+    ctx.fillText("Press Esc For Game Menu ", cnv.width/2, cnv.height - 25);
   }
 
+
+  /* Clear the Modal Canvas to Simulate Modal Close */
   close() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.modalContext.clearRect(0, 0, this.modalCanvas.width, this.modalCanvas.height);
   }
 
+
+  /* Helper Methods */
   wrapText(context, text, x, y, maxWidth, fontSize, fontFace){
     var words = text.split(' ');
     var line = '';

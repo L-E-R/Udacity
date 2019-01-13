@@ -5,45 +5,50 @@ import BaseView from "./base_view";
  */
 
 export default class GameMenu extends BaseView {
-  constructor(state) {
-    super();
 
-    this.state = state;
+  constructor() {
+    super();
     this.init();
   }
 
+
+  /* Initialize Class Variables */
   init() {
-    this.canvas = this.state.game.engine.modalCanvas;
-    this.context = this.state.game.engine.modalContext;
-    this.resources = this.state.game.resources;
   }
 
+
+  /* Render Content to the Canvas */
   render() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    let ctx = this.modalContext;
+    let cnv = this.modalCanvas;
 
-    this.context.fillStyle = "black";
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.clearRect(0, 0, cnv.width, cnv.height);
 
-    this.context.drawImage(this.resources.get('images/enemies/lawn-mower.png'), this.canvas.width/2 - 85, this.canvas.height/2 - 200);
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, cnv.width, cnv.height);
+
+    ctx.drawImage(this.resources.get('images/enemies/lawn-mower.png'), cnv.width/2 - 85, cnv.height/2 - 200);
 
 
-    this.context.font = "50px IMPACT";
-    this.context.textAlign = "center";
+    ctx.font = "50px IMPACT";
+    ctx.textAlign = "center";
 
-    this.context.fillStyle = "#19A329"
-    this.context.fillText("Mow-Cross", this.canvas.width/2, this.canvas.height/2);
+    ctx.fillStyle = "#19A329"
+    ctx.fillText("Mow-Cross", cnv.width/2, cnv.height/2);
 
-    this.context.font = "20px Arial";
-    this.context.fillStyle = "#FFFFFF";
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "#FFFFFF";
 
-    this.context.fillText("Press Enter To Start", this.canvas.width/2, this.canvas.height/2 + 75);
+    ctx.fillText("Press Enter To Start", cnv.width/2, cnv.height/2 + 75);
 
-    this.context.fillStyle = "#99bd98";
-    this.context.fillText("Press H For How To Play ", this.canvas.width/2, this.canvas.height/2 + 150);
-    this.context.fillText("Press O For Game Options", this.canvas.width/2, this.canvas.height/2 + 200);
+    ctx.fillStyle = "#99bd98";
+    ctx.fillText("Press H For How To Play ", cnv.width/2, cnv.height/2 + 150);
+    ctx.fillText("Press O For Game Options", cnv.width/2, cnv.height/2 + 200);
   }
 
+
+  /* Clear the Modal Canvas to Simulate Modal Close */
   close() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.modalContext.clearRect(0, 0, this.modalCanvas.width, this.modalCanvas.height);
   }
 }

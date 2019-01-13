@@ -4,18 +4,27 @@ import BaseSprite from "./base_sprite";
  * Player Sprite
  */
 
-export default class Player extends BaseSprite{
-  constructor(state) {
-    super();
+export default class Player extends BaseSprite {
 
-    this.state = state;
+  constructor() {
+    super();
     this.init();
   }
 
-  init() {
-    this.context = this.state.game.engine.gameContext;
-    this.resources = this.state.game.resources;
 
+  /* Getter & Setters */
+  get collisionPos() {
+    return {
+      x: this.x + 15,
+      y: this.y + 70,
+      width: this.width,
+      height: this.height
+    }
+  }
+
+
+  /* Initialize Class Variables */
+  init() {
     this.walkingSound = this.resources.get('sounds/step.wav');
     this.deathSound = this.resources.get('sounds/death.wav');
 
@@ -24,52 +33,52 @@ export default class Player extends BaseSprite{
     this.width = 70;
     this.height = 70;
 
-    this.sprite = this.resources.get(this.state.options.character);
+    this.sprite = this.resources.get(this.options.character);
   }
 
-  reset() {
-    delete this.isDead;
-    this.sprite.src = this.state.options.character;
-    this.x = 200;
-    this.y = 425;
+
+  /* Render Sprite Object to the Canvas */
+  render () {
+    this.gameContext.drawImage(this.sprite, this.x, this.y);
+
+    if (this.debug.showCollisionRect) {
+      this._debugRenderCollisionRect();
+    }
   }
 
+
+  /* Render Collision Rectangle around Sprite Image */
+  _debugRenderCollisionRect() {
+    this.gameContext.beginPath();
+    this.gameContext.rect(this.collisionPos.x, this.collisionPos.y, this.width, this.height);
+    this.gameContext.lineWidth = 7;
+    this.gameContext.strokeStyle = 'red';
+    this.gameContext.stroke();
+  }
+
+  
+  /* Render Sprite in Death State before Reset */
   death() {
     this.isDead = true;
     this.deathSound.play();
     this.y += 85;
     this.sprite.src = "images/board/splat.png";
-    if (!this.state.game.status.over) {
+    if (!this.status.over) {
       setTimeout(() => this.reset(), 3000);
     }
   }
 
 
-  collisionPos() {
-   return {
-      x: this.x + 15,
-      y: this.y + 70,
-      width: this.width,
-      height: this.height
-    }
+  /* Reset Sprite Position on Canvas */
+  reset() {
+    delete this.isDead;
+    this.sprite.src = this.options.character;
+    this.x = 200;
+    this.y = 425;
   }
 
-  render () {
-    this.context.drawImage(this.sprite, this.x, this.y);
 
-    if (this.state.debug.showCollisionRect) {
-      this._debugRenderCollisionRect();
-    }
-  }
-
-  _debugRenderCollisionRect() {
-    this.context.beginPath();
-    this.context.rect(this.collisionPos().x, this.collisionPos().y, this.width, this.height);
-    this.context.lineWidth = 7;
-    this.context.strokeStyle = 'red';
-    this.context.stroke();
-  }
-
+  /* Handle Keyboard Input for the Sprite */
   handleInput (direction) {
     if (!this.isDead) {
       this.walkingSound.currentTime = 0;

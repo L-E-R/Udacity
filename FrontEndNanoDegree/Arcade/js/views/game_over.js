@@ -5,39 +5,45 @@ import BaseView from "./base_view";
  */
 
 export default class GameOver extends BaseView {
-  constructor(state) {
+  
+  constructor() {
     super();
-
-    this.state = state;
     this.init();
   }
 
+
+  /* Initialize Class Variables */
   init() {
-    this.canvas = this.state.game.engine.modalCanvas;
-    this.context = this.state.game.engine.modalContext;
   }
 
+
+  /* Render Content to the Canvas */
   render() {
-    this.context.globalAlpha = 0.5;
-    this.context.fillStyle = "black";
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.context.globalAlpha = 1;
+    let ctx = this.modalContext;
+    let cnv = this.modalCanvas;
 
-    this.context.font = "50px IMPACT";
-    this.context.textAlign = "center";
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, cnv.width, cnv.height);
+    ctx.globalAlpha = 1;
 
-    this.context.fillStyle = "white"
-    this.context.fillText("GAME OVER", this.canvas.width/2, this.canvas.height/2);
+    ctx.font = "50px IMPACT";
+    ctx.textAlign = "center";
 
-    this.context.font = "20px Arial";
-    this.context.fillStyle = "white";
+    ctx.fillStyle = "white"
+    ctx.fillText("GAME OVER", cnv.width/2, cnv.height/2);
 
-    this.context.fillText("Press Enter To Play Again", this.canvas.width/2, this.canvas.height/2 + 75);
-    this.context.fillText("Press Esc For Game Menu", this.canvas.width/2, this.canvas.height/2 + 115);
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "white";
+
+    ctx.fillText("Press Enter To Play Again", cnv.width/2, cnv.height/2 + 75);
+    ctx.fillText("Press Esc For Game Menu", cnv.width/2, cnv.height/2 + 115);
 
   }
 
+
+  /* Clear the Modal Canvas to Simulate Modal Close */
   clear() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.modalContext.clearRect(0, 0, this.modalCanvas.width, this.modalCanvas.height);
   }
 }

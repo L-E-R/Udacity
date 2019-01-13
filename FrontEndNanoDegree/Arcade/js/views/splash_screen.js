@@ -5,24 +5,51 @@ import BaseView from "./base_view";
  */
 
 export default class SplashScreen extends BaseView {
-  constructor(state) {
-    super();
 
-    this.state = state;
+  constructor() {
+    super();
     this.init();
   }
 
+  /* Initialize Class Variables */
   init() {
-    this.canvas = this.state.game.engine.splashCanvas;
-    this.context = this.state.game.engine.splashContext;
-    this.resources = this.state.game.resources;
-
     this.alpha = 0;
     this.delta = 0.01;
     this.fadein = false;
     this.fadeout = false;
   }
 
+  /* Render Content to the Canvas */
+  render() {
+    let ctx = this.splashContext;
+    let cnv = this.splashCanvas;
+
+    this.clear();
+    ctx.beginPath();
+
+    ctx.globalAlpha = this.alpha;
+    
+    ctx.fillStyle = "#0a205a";
+    ctx.fillRect(0, 0, cnv.width, cnv.height);
+
+    let res = this.resources.get('images/splash/ler-logo.png');
+    ctx.drawImage(res, cnv.width/2 - 150, cnv.height/2 - 150);
+
+    ctx.drawImage(this.resources.get('images/splash/udacity-logo.png'), 104, 550);
+
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "#FFFFFF";
+    ctx.textAlign = "center";
+    ctx.fillText('Front-End Web Developer', cnv.width/2 + 24, 580);
+  }
+
+  /* Clear the Modal Canvas to Simulate Modal Close */
+  clear() {
+    this.splashContext.clearRect(0, 0, this.splashCanvas.width, this.splashCanvas.height);
+  }
+
+
+  /* Helper Methods */
   animation() {
     this.promise = new Promise((resolve) => {
       this.resolve = resolve;
@@ -37,7 +64,7 @@ export default class SplashScreen extends BaseView {
     if (this.fadein && this.fadeout) {
       this.clear();
       cancelAnimationFrame(this.animationID);
-      this.context.globalAlpha = 1;
+      this.splashContext.globalAlpha = 1;
     } else {
       if (this.alpha <= 0) {
         this.delta = -this.delta;
@@ -57,28 +84,4 @@ export default class SplashScreen extends BaseView {
     }
   }
 
-  render() {
-    this.clear();
-    this.context.beginPath();
-
-    this.context.globalAlpha = this.alpha;
-    
-    this.context.fillStyle = "#0a205a";
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-    let res = this.resources.get('images/splash/ler-logo.png');
-    this.context.drawImage(res, this.canvas.width/2 - 150, this.canvas.height/2 - 150);
-
-
-    this.context.drawImage(this.resources.get('images/splash/udacity-logo.png'), 104, 550);
-
-    this.context.font = "20px Arial";
-    this.context.fillStyle = "#FFFFFF";
-    this.context.textAlign = "center";
-    this.context.fillText('Front-End Web Developer', this.canvas.width/2 + 24, 580);
-  }
-
-  clear() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  }
 }

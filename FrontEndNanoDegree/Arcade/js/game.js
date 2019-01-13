@@ -19,26 +19,64 @@ export default class Game {
   constructor(state) {
     this.state = state;
 
-    this.over = new GameOver(state);
+    this.over = new GameOver();
 
-    this.board = new GameBoard(state);
+    this.board = new GameBoard();
 
-    this.score = new Score(state);
-    this.satchel = new Satchel(state);
-    this.health = new Health(state);
-    this.toolbox = new Toolbox(state);
-    this.player = new Player(state);
-    this.collectible = new Collectible(state);
+    this.score = new Score();
+    this.satchel = new Satchel();
+    this.health = new Health();
+    this.toolbox = new Toolbox();
+    this.player = new Player();
+    this.collectible = new Collectible();
     this.enemies = [];
 
     this.init();
   }
 
+  /* Initialize Game Setup */
   init() {
     this.createEnemies();
     this.setupKeyboardListener()
   }
 
+  /* Render Game Objects to the Canvas */
+  render() {
+    this.board.render();
+    this.score.render();
+    this.satchel.render();
+    this.health.render();
+
+    this.toolbox.render();
+    this.collectible.render();
+
+    // render dead player z-index lower than enemy
+    // gives effect of enemy going over splat
+    if (this.player.isDead) {
+      this.player.render();
+    }
+
+    this.enemies.forEach(enemy => enemy.render());
+    
+    // render active player z-index higher than enemy
+    // gives better depth to view
+    if (!this.player.isDead) {
+      this.player.render();
+    }
+  }
+
+  update(dt) {
+    if (!this.state.game.status.paused) {
+      this.enemies.forEach(enemy => enemy.update(dt));
+    } else {
+      this.enemies.forEach(enemy => enemy.stopSoundEffect())
+    }
+    
+    this.render();
+    this.detect();      
+  }
+
+  /* Game Start */
   start() {
     this.state.game.engine.start(this.update.bind(this));
     this.player.sprite.src = this.state.options.character;
@@ -47,6 +85,7 @@ export default class Game {
     }
   }
 
+  /* Game Stop */
   stop() {
     this.state.game.engine.gameContext.clearRect(0, 0, this.state.game.engine.gameCanvas.width, this.state.game.engine.gameCanvas.height);
     this.state.game.engine.stop();
@@ -70,48 +109,15 @@ export default class Game {
     this.render();
   }
 
-  render() {
-    this.board.render();
-    this.score.render();
-    this.satchel.render();
-    this.health.render();
 
-    this.toolbox.render();
-    this.collectible.render();
 
-    // render dead player z-index lower than enemy
-    // gives effect of enemy going over splat
-    if (this.player.isDead) {
-      this.player.render();
-    }
-
-    this.enemies.forEach(enemy => enemy.render());
-    
-    // render active player z-index higher than enemy
-    // gives better depth to view
-    if (!this.player.isDead) {
-      this.player.render();
-    }
-     
-  }
-
-  update(dt) {
-    if (!this.state.game.status.paused) {
-      this.enemies.forEach(enemy => enemy.update(dt));
-    } else {
-      this.enemies.forEach(enemy => enemy.stopSoundEffect())
-    }
-    
-    this.render();
-    this.detect();      
-  }
-
+  /* Collision Detection */
   detect() {
 
     // enemy collision
     if (!this.player.isDead) {
       this.enemies.forEach(enemy => {
-        if (this.collides(this.player.collisionPos(), enemy.collisionPos())) {
+        if (this.collides(this.player.collisionPos, enemy.collisionPos)) {
           this.health.removeHealth();
           this.satchel.removeItem();
 
@@ -134,13 +140,13 @@ export default class Game {
     }
 
     // collectible collision
-    if (this.collides(this.player.collisionPos(), this.collectible.collisionPos())) {
+    if (this.collides(this.player.collisionPos, this.collectible.collisionPos)) {
       this.satchel.item = this.collectible.item;
       this.collectible.remove();
     }
 
     // toolbox collision
-    if (this.collides(this.player.collisionPos(), this.toolbox.collisionPos())
+    if (this.collides(this.player.collisionPos, this.toolbox.collisionPos)
         && this.satchel.item) {
       this.score.addPoints(this.satchel.item.points);
       this.satchel.removeItem();
@@ -155,14 +161,8 @@ export default class Game {
            a.y + a.height > b.y;
   }
 
-  _getDistance(x1, y1, x2, y2) {
-    let xDistance = x2 - x1;
-    let yDistance = y2 - y1;
 
-    return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-  }
-
-
+  /* Enemy Creation */
   createEnemies() {
     const row = [
       {x:0, y:125},
@@ -176,6 +176,8 @@ export default class Game {
     }
   }
 
+
+  /* Handle Keyboard Input for the Game */
   setupKeyboardListener() {
     document.addEventListener('keyup', e => {
 

@@ -5,17 +5,26 @@ import BaseSprite from "./base_sprite";
  */
 
 export default class Toolbox extends BaseSprite {
-  constructor(state) {
+  
+  constructor() {
     super();
-
-    this.state = state;
     this.init();
   }
 
-  init() {
-    this.context = this.state.game.engine.gameContext;
-    this.resources = this.state.game.resources;
+  
+  /* Getter & Setters */
+  get collisionPos() {
+    return {
+       x: this.x + 5,
+       y: this.y + 5,
+       width: this.width,
+       height: this.height
+     }
+   }
 
+
+  /* Initialize Class Variables */
+  init() {
     this.x = 15;
     this.y = 510;
     this.width = 70;
@@ -25,28 +34,23 @@ export default class Toolbox extends BaseSprite {
   }
 
 
-  collisionPos() {
-    return {
-       x: this.x + 5,
-       y: this.y + 5,
-       width: this.width,
-       height: this.height
-     }
-   }
-
+  /* Render Sprite Object to the Canvas */
   render () {
-    this.context.drawImage(this.sprite, this.x, this.y);
+    this.gameContext.drawImage(this.sprite, this.x, this.y);
 
-    if (this.state.debug.showCollisionRect) {
+    if (this.debug.showCollisionRect) {
       this._debugRenderCollisionRect();
     }
   }
 
+
+  /* Render Collision Rectangle around Sprite Image */
   _debugRenderCollisionRect() {
-    this.context.beginPath();
-    this.context.rect(this.collisionPos().x, this.collisionPos().y, this.width, this.height);
-    this.context.lineWidth = 7;
-    this.context.strokeStyle = 'yellow';
-    this.context.stroke();
+    this.gameContext.beginPath();
+    this.gameContext.rect(this.collisionPos.x, this.collisionPos.y, this.width, this.height);
+    this.gameContext.lineWidth = 7;
+    this.gameContext.strokeStyle = 'yellow';
+    this.gameContext.stroke();
   }
+
 }

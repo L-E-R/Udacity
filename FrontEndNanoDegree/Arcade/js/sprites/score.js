@@ -5,41 +5,47 @@ import BaseSprite from "./base_sprite";
  */
 
 export default class Score extends BaseSprite {
-  constructor(state) {
+  
+  constructor() {
     super();
-
-    this.state = state;
     this.init();
   }
 
+
+  /* Initialize Class Variables */
   init() {
-    this.context = this.state.game.engine.gameContext;
-    this.canvas = this.state.game.engine.gameCanvas;
-    this.resources = this.state.game.resources;
     this.sound = this.resources.get('sounds/dropoff.wav');
     this.score = 0
   }
 
+  
+  /* Render Score to the Canvas */
+  render() {
+    this.gameContext.textAlign = "center";
+
+    this.gameContext.font = "38px Arial";
+    this.gameContext.fillStyle = "#FFFFFF";
+
+    this.gameContext.fillText(this.score, this.gameCanvas.width/2, 40);
+  }
+
+
+  /* Increment the Score */
   addPoints(points) {
     this.sound.play();
     this.score += points;
     this.render();
   }
 
+
+  /* Decrement the Score */
   removePoints(points) {
     this.score -= points;
     this.render();
   }
 
-  render() {
-    this.context.textAlign = "center";
 
-    this.context.font = "38px Arial";
-    this.context.fillStyle = "#FFFFFF";
-
-    this.context.fillText(this.score, this.canvas.width/2, 40);
-  }
-
+  /* Reset Rendered Score */
   reset() {
     this.score = 0;
   }

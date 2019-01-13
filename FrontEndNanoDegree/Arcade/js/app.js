@@ -1,3 +1,6 @@
+import BaseSprite from './sprites/base_sprite';
+import BaseView from './views/base_view';
+
 import Game from './game';
 import GameStateObservable from './helpers/game_state_observable';
 
@@ -9,18 +12,23 @@ import GamePause from './views/game_pause';
 import GameOver from './views/game_over';
 
 
+
 let App = (function () {
 
   let state = {};
   let splash, menu, help, options ,game, pause, over;
   
+  /* Setup Observable for maintaining Game State */
   const subscription = new GameStateObservable(
-        onNext,
+        onStateUpdate,
         (err) => console.error(err), 
         () => console.log('complete'));
 
-  function onNext(value) {
+  /* Update Game State */
+  function onStateUpdate(value) {
     state = value;
+    BaseSprite.state = state;
+    BaseView.state = state;
 
     if (state.game.status.initializing) {
       state.game.status.initializing = false;
@@ -28,27 +36,32 @@ let App = (function () {
     }
   }
 
+  /* Display the Splash Screen */
   function doSplash() {
-    splash = new SplashScreen(state);
-    splash.animation(state).then(doGameSetup);
+    splash = new SplashScreen();
+    splash.animation().then(doGameSetup);
   } 
 
+  /* Setup Game Objects */
   function doGameSetup() {
-    menu = new GameMenu(state);
-    help = new GameHelp(state);
-    options = new GameOptions(state);
+    menu = new GameMenu();
+    help = new GameHelp();
+    options = new GameOptions();
   
     game = new Game(state);
-    pause = new GamePause(state);
-    over = new GameOver(state);
+    pause = new GamePause();
+    over = new GameOver();
 
     doGameMenu();
   }
 
+  /* Render the Game Menu */
   function doGameMenu() {    
     menu.render();
   }
 
+
+  /* Handle Keyboard Input for the App */
   document.addEventListener('keyup', e => {
     if (!state.game.status.initializing) {
       var allowedKeys = {
