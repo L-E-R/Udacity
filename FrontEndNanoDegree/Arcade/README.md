@@ -8,7 +8,7 @@
 - [Resource References](#resource-references)
 <br/> 
 <br/> 
----
+
 ## Instructions
 
 To get started locally, follow these instructions:
@@ -19,7 +19,7 @@ To get started locally, follow these instructions:
 1. Open your browser and navigate to `http://localhost:9000` to see the game in the browser.
 <br/> 
 <br/> 
----
+
 ## How To Play
 
 ### Objective
@@ -45,7 +45,7 @@ Use the arrow keys on your keyboard to move up|down|left|right to dodge the lawn
  &nbsp; | ```Esc```  | Close the Game (in game over state) and return to the Game Menu
 <br/> 
 <br/> 
----
+
 ## Resource References
 
 | Category | Resource | Site | Description |
