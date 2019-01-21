@@ -79,14 +79,16 @@ $(function() {
 
     describe('New Feed Selection', () => {
 
-        let previousFeedContent,
+        let initialFeedContent,
             currentFeedContent;
 
         beforeEach((done) => {
 
+            // initial load to get initial data
             loadFeed(0, () => {
-                previousFeedContent = document.querySelector('.feed').innerHTML;
+                initialFeedContent = document.querySelector('.feed').innerHTML;
 
+                // update load to get data change
                 loadFeed(1, () => {
                     currentFeedContent = document.querySelector('.feed').innerHTML;
                     done();
@@ -95,7 +97,7 @@ $(function() {
         });
 
         it('should update content on async completion', (done) => {
-            expect(currentFeedContent).not.toEqual(previousFeedContent);
+            expect(currentFeedContent).not.toEqual(initialFeedContent);
             done();
         });
     });
