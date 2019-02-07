@@ -1,0 +1,203 @@
+#app {
+  display: flex;
+  flex-direction: row;
+  margin: unset;
+}
+
+.list-container{
+  width: 25%;
+  height: 100vh;
+  text-align: center;
+  border-right: 1px solid dimgray;
+}
+
+.list-container-header {
+  width: 100%;
+  font-size: 48px;
+  font-family: sans-serif;
+  border-bottom: 1px solid dimgray;
+}
+
+.cat-list {
+  font-size: 30px;
+  list-style-type: none;
+  padding-inline-start: unset;
+}
+
+.cat-list li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.cat-list li:hover {
+  text-decoration: underline;
+}
+
+
+.view-container {
+  width: 75%;
+}
+
+.detail-article {
+  /* width: 25%; */
+  display: none;
+  padding: 20px;
+}
+
+.detail-article.selected {
+  display: block;
+}
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-header {
+  width: 100%;
+  font-size: 48px;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.detail-header i.fa-edit {
+  float: right;
+  color: lightgray;
+}
+
+.detail-header i.fa-edit:hover {
+  color: black;
+  cursor: pointer
+}
+
+.overlay-image {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+}
+
+.detail-graphic {
+  display: block;
+  width: 100%;
+  /* max-height: 310px; */
+  height: auto;
+}
+
+
+.click-count {
+  position: absolute;
+  color: #fff;
+  font-size: 64px;
+  line-height: 1.5em;
+  text-shadow: 2px 2px 2px #000;
+  text-align: center;
+  top: 90%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  pointer-events: none;
+}
+
+.modal {
+  /* display: none; */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  font-family: sans-serif;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid dimgray;
+  margin-bottom: 20px;
+}
+
+.modal-header-title {
+  font-size: 24px;
+}
+
+/* The Close Button */
+.close {
+  padding-bottom: 5px;
+  color: #aaaaaa;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% 37%;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-form p {
+  display: flex;
+  flex-direction: row;
+}
+
+.admin-form label {
+  width: 10%;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 18px;
+}
+
+.admin-form input {
+  flex-grow: 1;
+  font-size: 18px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.modal-actions .save-button {
+  margin: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.modal-actions .save-button:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-actions .cancel-button {
+  margin: 10px;
+  font-size: 18px;
+  border: none;
+  color: lightgray;
+  background-color: transparent;
+}
+
+.modal-actions .cancel-button:hover {
+  color: black;
+  cursor: pointer;
+}
