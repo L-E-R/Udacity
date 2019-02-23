@@ -189,7 +189,7 @@ nav h1 a {
 
 /* ====================== Restaurant Listing ====================== */
 #restaurants-list-container, #restaurant-container {
-  height: 100%;
+  height: calc(100% - 55px);
   width: 100%;
   margin: auto;
 }
