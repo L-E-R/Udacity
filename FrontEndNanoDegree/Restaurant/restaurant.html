@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -13,7 +13,7 @@
 
 <body>
   <header>
-    <nav>
+    <nav role="navigation" aria-label="Breadcrumb">
       <h1><a href="/">Restaurant Reviews</a></h1>
     </nav>
     <ul id="breadcrumb" >
@@ -23,11 +23,11 @@
 
   <main id="main-container">
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" role="application" aria-label="locations"></div>
     </section>
     <section id="details-container" class="scrollable">
       <div id="restaurant-details">
-        <h1 id="restaurant-name"></h1>
+        <h2 id="restaurant-name"></h2>
         <img id="restaurant-img">
         <p id="restaurant-cuisine"></p>
         <p id="restaurant-address"></p>
